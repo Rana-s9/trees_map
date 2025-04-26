@@ -1,0 +1,20 @@
+<div class="container mx-auto px-4">
+  <div class="flex justify-center">
+    <div class="w-full max-w-lg">
+      <h1 class="text-2xl text-green-400 font-bold mb-6">ログイン</h1>
+      <%= form_with model: resource, url: session_path(resource_name), local: true do |f| %>
+        <%= render "devise/sessions/shared/error_messages", resource: resource %>
+        <div>
+          <%= f.label :email, class: "block text-sm font-medium text-green-400" %>
+          <%= f.email_field :email, class: "mt-1 mb-6 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-400 focus:border-green-600 text-green-400" %>
+        </div>
+        <div>
+          <%= f.label :password, class: "block text-sm font-medium text-green-400" %>
+          <%= f.password_field :password, class: "mt-1 mb-6 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-400 focus:border-green-600 text-green-400" %>
+        </div>
+        <%= f.submit 'ログイン', class: "w-full mb-6 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
+        <% end %>
+        <%= link_to '新規登録はこちら', new_user_registration_path, class: "text-green-600" %>
+    </div>
+  </div>
+</div>
