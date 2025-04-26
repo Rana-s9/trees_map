@@ -4,6 +4,7 @@
     <% if user_signed_in? %>
       <li>
         <%= link_to "ログアウト", destroy_user_session_path,data: { turbo: false }, method: :delete, class: "text-white" %>
+        <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "text-white" %>
       </li>
     <% else %>
       <li>
@@ -11,6 +12,7 @@
       </li>
       <li>
         <%= link_to "ログイン", new_user_session_path,data: { turbo: false }, class: "text-white" %>
+        <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "text-white" %>
       </li>
     <% end %>
   </header>
