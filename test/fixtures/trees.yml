@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  fav_place: one
+  tree_name: MyString
+  random_x: 1.5
+  random_y: 1.5
+  random_z: 1.5
+
+two:
+  user: two
+  fav_place: two
+  tree_name: MyString
+  random_x: 1.5
+  random_y: 1.5
+  random_z: 1.5

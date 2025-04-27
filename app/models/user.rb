@@ -3,6 +3,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   has_many :fav_places, dependent: :destroy
+  has_many :trees, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
