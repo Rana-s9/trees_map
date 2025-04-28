@@ -1,0 +1,203 @@
+<header class ="relative">
+  <h1 class="text-white text-2xl">クリックで木を植えて、ズームしたり色々な角度から眺めてみてね。<br>現在のすべての🌳<%= @trees_count %>本</h1><br>
+  <%= link_to "TOP",root_path, data: { turbo: false },class: "w-200 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
+  //
+  <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
+  <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
+<!-- map 表示用 -->
+<div id="map-container">
+  <div id="map"></div>
+</div>
+
+<style>
+  #map-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 400px;
+    height: 200px;
+    z-index: 9999;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    background-color: white;
+  }
+
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<% json_data = @trees.map { |tree|
+  {
+    latitude: tree[:latitude],
+    longitude: tree[:longitude],
+    fav_name: tree[:fav_name]
+  }
+}.select { |p| p[:latitude] && p[:longitude] }.to_json %>
+
+<div id="fav-places-data" data-places="<%= json_data %>"></div>
+
+<script>
+  let map;
+
+  function initMap() {
+    const dataElement = document.getElementById('fav-places-data');
+    if (!dataElement) {
+      console.error("データ要素が見つかりません");
+      return;
+    }
+
+    const places = JSON.parse(dataElement.getAttribute('data-places') || '[]');
+    if (!places.length) {
+      console.error("地図に表示する場所がありません");
+      return;
+    }
+
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: places[0].latitude, lng: places[0].longitude },
+      zoom: 12,
+      mapTypeId: "hybrid"
+    });
+
+    const geocoder = new google.maps.Geocoder();
+
+    places.forEach(place => {
+      const latLng = new google.maps.LatLng(place.latitude, place.longitude);
+
+      const marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+        title: place.fav_name || "お気に入りの場所" // 名前がある場合、それをタイトルとして使用
+      });
+
+      // 情報ウィンドウを作成
+      const infoWindow = new google.maps.InfoWindow({
+        content: place.fav_name || "お気に入りの場所"
+      });
+
+      // クリックイベントで情報ウィンドウを表示
+      marker.addListener("click", function () {
+        infoWindow.open(map, marker);
+      });
+
+      geocoder.geocode({ location: latLng }, function(results, status) {
+        if (status === 'OK' && results[0]) {
+          const placeName = results[0].formatted_address;
+          const placeNameInput = document.getElementById('place-name');
+          if (placeNameInput) placeNameInput.value = placeName;
+        } else {
+          console.error('場所名が取得できませんでした。');
+        }
+      });
+    });
+
+      const bounds = new google.maps.LatLngBounds();
+      places.forEach(place => {
+        bounds.extend(new google.maps.LatLng(place.latitude, place.longitude));
+      });
+      map.fitBounds(bounds);
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap"></script>
+
+
+  <button id="addTreeButton" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">木を植える</button>
+  <div id="camera-buttons" class="flex gap-2 p-4">
+    <button id="btn-south-america" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">南米🥁🌿/ブラジル</button>
+    <button id="btn-central-america" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">中米🚢🌴/パナマ</button>
+    <button id="btn-north-america" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">北米⛰🦅/アメリカ</button>
+    <button id="btn-north" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">北❄️🌲/スウェーデン</button>
+    <button id="btn-west" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">西⚓️🌊/ポルトガル</button>
+    <button id="btn-eastern-europe" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">東ヨーロッパ🌻🕊️/ウクライナ</button>
+    <button id="btn-africa" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">アフリカ🦒🌅/ケニア</button>
+    <button id="btn-north-africa" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">北アフリカ🐪🏺/エジプト</button>
+    <button id="btn-middle-east" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">中東🏜️🕌/サウジアラビア</button>
+    <button id="btn-central-asia" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">中央アジア🐎🏜️/カザフスタン</button>
+    <button id="btn-south-asia" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">南アジア🕌🪔/インド</button>
+    <button id="btn-southeast-asia" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">東南アジア🐘🌴/タイ</button>
+    <button id="btn-east" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">東🗻🌸/日本</button>
+    <button id="btn-south" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">南🦘🏖/オーストラリア</button>
+    <button id="btn-arctic" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">北極圏🐻‍❄️❄️</button>
+    <button id="btn-antarctic" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">南極圏🐧❄️</button>
+  </div>
+  <script>
+      // 追加：各ボタンにイベントリスナーを設定
+    document.addEventListener("DOMContentLoaded", function () {
+      const cameraFocusMap = {
+        "btn-north": { lat: 60.1282, lng: 18.6435 },         // スウェーデン
+        "btn-south": { lat: -25.2744, lng: 133.7751 },       // オーストラリア
+        "btn-east": { lat: 36.2048, lng: 138.2529 },         // 日本
+        "btn-west": { lat: 39.3999, lng: -8.2245 },          // ポルトガル
+        "btn-southeast-asia": { lat: 13.7563, lng: 100.5018 }, // タイ
+        "btn-south-asia": { lat: 20.5937, lng: 78.9629 },     // インド
+        "btn-africa": { lat: -1.2921, lng: 36.8219 },         // ケニア
+        "btn-north-america": { lat: 37.0902, lng: -95.7129 }, // アメリカ合衆国
+        "btn-south-america": { lat: -14.2350, lng: -51.9253 },// ブラジル
+        "btn-eastern-europe": { lat: 48.3794, lng: 31.1656 }, // ウクライナ
+        "btn-central-asia": { lat: 48.0196, lng: 66.9237 },   // カザフスタン
+        "btn-central-america": { lat: 8.538, lng: -80.7821 }, // パナマ
+        "btn-middle-east": { lat: 23.8859, lng: 45.0792 },    // サウジアラビア
+        "btn-north-africa": { lat: 26.8206, lng: 30.8025 },   // エジプト
+        "btn-arctic": { lat: 80.0, lng: 0.0 },                // 北極圏
+        "btn-antarctic": { lat: -80.0, lng: 0.0 }             // 南極圏
+      };
+
+      Object.entries(cameraFocusMap).forEach(([btnId, coords]) => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          btn.addEventListener("click", function () {
+            if (!map) {
+              console.error("マップが初期化されていません");
+              return;
+            }
+            map.panTo(coords);
+            map.setZoom(4); // 地域レベルで表示したい場合はこのズームが目安
+          });
+        }
+      });
+    });
+  </script>
+  <br>
+  <% if user_signed_in? %>
+      <% if current_user.fav_places_without_trees.exists? %>
+        <p class="text-white">まだ木が植えられていない場所があります🌳</p>
+        <!-- 選択肢のドロップダウン -->
+        <div class="mb-4">
+          <label for="fav_place_select" class="text-white">場所を選んでください：</label>
+          <select id="fav_place_select" class="w-full px-4 py-2 rounded-md bg-gray-700 text-white">
+            <option disabled selected>-- 場所を選ぶ --</option>
+            <% current_user.fav_places_without_trees.each do |fav_place| %>
+              <option value="<%= fav_place.id %>" data-x="<%= fav_place.fav_x %>" data-z="<%= fav_place.fav_z %>">
+                <%= fav_place.fav_name %>
+              </option>
+            <% end %>
+          </select>
+          <button id="addFavTreeButton" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">この場所に木を植える</button>
+        </div>
+      <% else %>
+        <% if current_user.trees.count < 10 %>
+          <button id="addTreeButton" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">木を植える</button>
+        <% else %>
+          <button class="btn btn-gray text-green-400" disabled>木は10本まで植えられます😭</button>
+        <% end %>
+      <% end %>
+      <% if @trees_id_name.empty? %>
+        <h1 class="text-white text-2xl">まだ<%= current_user.user_name %>さんは🌳を植えていません</h1>
+      <% else %>
+        <h1 class="text-white text-2xl"><%= current_user.user_name %>さんの🌳：<%= @trees_id_name %></h1>
+      <% end %>
+    //
+  <% else %>
+    <h1 class="text-white text-xl">ログインして植林しよう🌳</h1>
+  <% end %>
+</header>
+
+<!-- ここで JSON データを渡す -->
+<div id="treeData" style="display: none;">
+  <%= raw @trees.to_json %> <!-- Rails でコントローラから JSON データを渡す -->
+</div>
+
+<%= javascript_include_tag "trees.js" %>

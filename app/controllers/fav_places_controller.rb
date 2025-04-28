@@ -13,7 +13,8 @@ class FavPlacesController < ApplicationController
   end
 
   def create
-    @fav_place = current_user.fav_places.build(fav_place_params)
+    @fav_place = current_user.fav_places.build(fav_place_params) # ←これが必要！
+    # 緯度・経度が空の場合だけGeocoderを使う
     if @fav_place.latitude.blank? || @fav_place.longitude.blank?
       result = Geocoder.search(@fav_place.address).first
       if result
@@ -25,6 +26,7 @@ class FavPlacesController < ApplicationController
     if @fav_place.save
       respond_to do |format|
         format.html { redirect_to fav_places_path, notice: '保存しました' }
+        # format.turbo_stream
       end
     else
       render :new, status: :unprocessable_entity
@@ -37,3 +39,4 @@ class FavPlacesController < ApplicationController
     params.require(:fav_place).permit(:fav_name, :address, :fav_x, :fav_y, :fav_z, :latitude, :longitude)
   end
 end
+

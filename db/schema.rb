@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_27_120406) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_28_062356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -30,11 +30,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_27_120406) do
 
   create_table "trees", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "fav_place_id", null: false
+    t.bigint "fav_place_id"
     t.string "tree_name"
-    t.float "random_x"
-    t.float "random_y"
-    t.float "random_z"
+    t.float "position_x"
+    t.float "position_y"
+    t.float "position_z"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fav_place_id"], name: "index_trees_on_fav_place_id"
