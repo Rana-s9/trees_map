@@ -14,9 +14,9 @@ class MapTreesController < ApplicationController
     @trees_count = Tree.count
 
     if current_user
+      @tree_count = current_user.trees.count
       @trees_id_name = current_user.trees.order(created_at: :asc).map do |tree|
         {
-          id: tree.id,
           name: tree.tree_name,
           fav_name: tree.fav_place&.fav_name
       }

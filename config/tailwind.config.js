@@ -32,8 +32,10 @@ module.exports = {
         'lavender': '#B7A7C0',
         'greige-rose': '#CBA6A7',
         'pink-red': '#db7093',
-        'pink': '#ffc0cd',
-        'light-pink': '#ffb6c1'
+        'pink': 'f08080',
+        'light-pink': '#fa8072',
+        'light-salmon': '#ffa07a',
+        'gray': '#2f4f4f'
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],

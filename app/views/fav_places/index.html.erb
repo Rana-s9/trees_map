@@ -1,4 +1,4 @@
-<h1 class="text-white text-4xl">登録植林地図</h1>
+<h1 class="text-white text-4xl">登録場所一覧</h1>
 <h1 class="text-white text-xl">地図のピンにカーソルを合わせると、場所名が出ます📍</h1><br>
 <header>
   <%= link_to "TOP",root_path, data: { turbo: false },class: "w-200 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
@@ -61,7 +61,7 @@
 </header>
 <body style="background-color: green;">
   <div class="container mx-auto px-4">
-    <h1 class="text-3xl font-bold mb-8 text-white text-center">🌳守りたい素敵自然スポット🌳</h1>
+    <h1 class="text-3xl font-bold mb-8 text-white text-center">🌳　🌳　🌳</h1>
 
     <% if @fav_places.empty? %>
       <p class="text-white text-center text-lg">登録場所はまだありません</p>
@@ -77,8 +77,6 @@
             <p><strong>保存ユーザー:</strong> <%= fav_place.user.user_name %></p>
             <p><strong>保存日時:</strong> <%= l(fav_place.created_at, format: :long) %></p>
             <p><strong>住所</strong> <%= fav_place.address %></p>
-            <p><strong>緯度</strong> <%= fav_place.latitude %></p>
-            <p><strong>経度</strong> <%= fav_place.longitude %></p>
           </div>
         <% end %>
       </div>

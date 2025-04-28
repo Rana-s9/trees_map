@@ -1,0 +1,29 @@
+<header>
+  <%= link_to "TOP",root_path, data: { turbo: false },class: "w-200 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
+  <%= link_to "木を見に行く",map_trees_path, data: { turbo: false }, class: "w-200 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
+</header>
+<body style="background-color: green;">
+  <div class="container mx-auto px-4">
+    <h1 class="text-3xl font-bold mb-8 text-white text-center">🌳 <%= current_user.user_name %> の木 🌳</h1>
+    <h1 class="text-xl font-bold mb-8 text-white text-center">~木の名前をクリックして、自分好みに編集してね~</h1>
+
+    <% if @trees.empty? %>
+      <p class="text-white text-center text-lg">木はまだありません</p>
+    <% else %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @trees.each do |tree| %>
+          <div class="bg-white text-green-800 rounded-lg shadow-md p-6">
+            <p><strong>木ID:</strong> <%= tree.id %></p>
+            <p>
+              <strong>木の名前:</strong>
+              <%= link_to tree.tree_name, my_tree_path(tree), class: "text-green-600 underline hover:text-green-800" %>
+            </p>
+            <p><strong>植林場所</strong> <%= tree.fav_place&.fav_name || "植林場所が未設定です" %></p>
+            <p><strong>住所</strong> <%= tree.fav_place&.address || "住所が未設定です" %></p>
+            <p><strong>植えたユーザー:</strong> <%= tree.user.user_name %></p>
+            <p><strong>植えた日時:</strong> <%= l(tree.created_at, format: :long) %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
