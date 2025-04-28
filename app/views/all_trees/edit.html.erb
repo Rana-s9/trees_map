@@ -1,0 +1,32 @@
+<body style="background-color: white;"> 
+  <% content_for(:tree, @tree.tree_name) %>
+
+  <div class="container pt-5">
+    <div class="flex justify-center mb-3">
+      <div class="w-full max-w-2xl">
+        <div class="bg-white rounded-lg shadow-md">
+          <div class="p-6">
+            <h2 class="text-xl font-bold text-green-600 mb-4">木の名前を編集</h2>
+
+            <%= form_with model: @tree, url: all_tree_path(@tree), method: :patch, local: true do |f| %>
+              <div class="mb-4">
+                <%= f.label :tree_name, "新しい木の名前", class: "block text-gray-700 font-semibold mb-2" %>
+                <%= f.text_field :tree_name, class: "w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-300" %>
+              </div>
+
+              <div class="flex justify-end">
+                <%= f.submit "更新する", class: "bg-green-500 hover:bg-green-400 font-bold py-2 px-4 rounded shadow" %>
+              </div>
+            <% end %>
+
+            <div class="mt-4 text-sm text-gray-500">
+              <p><strong>木ID:</strong> <%= @tree.id %></p>
+              <p><strong>植えた日時:</strong> <%= l(@tree.created_at, format: :long) %></p>
+              <p><strong>植えた人:</strong> <%= @tree.user.user_name %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

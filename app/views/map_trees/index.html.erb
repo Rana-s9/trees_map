@@ -1,7 +1,7 @@
 <header class ="relative">
   <h1 class="text-white text-2xl">クリックで木を植えて、ズームしたり色々な角度から眺めてみてね。<br>現在のすべての🌳<%= @trees_count %>本</h1><br>
   <%= link_to "TOP",root_path, data: { turbo: false },class: "w-200 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
-  //
+  <%= link_to "植林ログ", all_trees_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
   <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
   <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
 <!-- map 表示用 -->
@@ -189,7 +189,7 @@
       <% else %>
         <h1 class="text-white text-2xl"><%= current_user.user_name %>さんの🌳：<%= @trees_id_name %></h1>
       <% end %>
-    //
+    <%= link_to "木に名前をつける", my_trees_path,data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
   <% else %>
     <h1 class="text-white text-xl">ログインして植林しよう🌳</h1>
   <% end %>
