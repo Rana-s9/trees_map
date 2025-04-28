@@ -6,13 +6,13 @@ class MyTreesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
-    get my_trees_edit_url
+  test "should get show" do
+    get my_trees_show_url
     assert_response :success
   end
 
-  test "should get show" do
-    get my_trees_show_url
+  test "should get edit" do
+    get my_trees_edit_url
     assert_response :success
   end
 end

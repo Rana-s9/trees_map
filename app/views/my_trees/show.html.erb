@@ -7,7 +7,7 @@
           <div class="bg-white rounded-lg shadow-md">
             <div class="p-6">
               <div class="flex justify-between items-center mb-4">
-                <h3 class="text-2xl font-semibold text-green-600"><%= @tree.name %></h3>
+                <h3 class="text-2xl font-semibold text-green-600"><%= @tree.tree_name %></h3>
 
                 <% if current_user.own?(@tree) %>
                   <%= link_to edit_my_tree_path(@tree), class: " bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" do %>
