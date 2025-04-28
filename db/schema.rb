@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_26_071404) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_28_062356) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -28,6 +28,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_26_071404) do
     t.index ["user_id"], name: "index_fav_places_on_user_id"
   end
 
+  create_table "trees", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "fav_place_id"
+    t.string "tree_name"
+    t.float "position_x"
+    t.float "position_y"
+    t.float "position_z"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fav_place_id"], name: "index_trees_on_fav_place_id"
+    t.index ["user_id"], name: "index_trees_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "user_name", null: false
     t.string "email", default: "", null: false
@@ -42,4 +55,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_26_071404) do
   end
 
   add_foreign_key "fav_places", "users"
+  add_foreign_key "trees", "fav_places"
+  add_foreign_key "trees", "users"
 end
