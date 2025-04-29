@@ -16,18 +16,8 @@ class MyTreesController < ApplicationController
       if @tree.update(tree_params)
           redirect_to my_trees_path, notice: "あなたの木に命名しました"
       else
-          flash[:error] = @tree.errors.full_messages.to_sentence
           render :edit
       end
-  end
-
-  def destroy
-    @tree = current_user.trees.find(params[:id])
-    if @tree.destroy
-      redirect_to my_trees_path, notice: "木を削除しました"
-    else
-      redirect_to my_trees_path, alert: "削除に失敗しました"
-    end
   end
   
   private
