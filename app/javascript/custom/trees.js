@@ -209,6 +209,8 @@ document.addEventListener("turbo:load", function() {
         function cloneTreeWithoutSaving(tree) {
             const clonedTree = model.clone();
 
+            
+
             // 座標スケーリングの条件分岐
             const scale = 300;
             let x = tree.position_x;
@@ -225,7 +227,7 @@ document.addEventListener("turbo:load", function() {
             
             scene.add(clonedTree);
 
-            const labelText1 = `${tree.tree_name} / ${tree.user_name} `;
+            const labelText1 = `${tree.name} / ${tree.user_name} `;
             const labelText2 = tree.fav_name? `${tree.fav_name}` : "random";
             const textSprite = createTextSprite(labelText1, labelText2);
             textSprite.position.set(position.x, position.y + 15, position.z);
@@ -247,13 +249,13 @@ document.addEventListener("turbo:load", function() {
 
         // ボタンがクリックされたときだけ、保存付きで木を追加
         document.getElementById('addTreeButton').addEventListener('click', () => {
-            const scale = 300;
+            const scale = 1.5;
 
-            const minX = 9953.7215/3 / scale;
-            const maxX = 18471.9972/3 / scale;
+            const minX = 9953.7215 / scale;
+            const maxX = 18471.9972 / scale;
 
-            const minZ = 6166.8548/3 / scale;
-            const maxZ = 17451.7876/3 / scale;
+            const minZ = 6166.8548 / scale;
+            const maxZ = 17451.7876 / scale;
             const randomPosition = {
                 x: Math.random() * (maxX - minX) + minX,
                 y: 0,
@@ -288,20 +290,19 @@ document.addEventListener("turbo:load", function() {
     // 3. サーバーに木のデータを送信する関数
     function sendTreeDataToServer(position, favPlaceId = null) {
         const treeData = {
-            tree_name: "名もない木",
+            name: "名もない木",
             position_x: position.x,
             position_y: position.y,
             position_z: position.z,
-            fav_place_id: favPlaceId || null
+            fav_place_id: favPlaceId
         };
 
-        fetch('/map_trees', {
+        fetch('/planting_trees', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
             },
-            credentials: 'same-origin',
             body: JSON.stringify({ tree: treeData })
         })
         .then(response => response.json())
