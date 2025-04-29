@@ -1,0 +1,53 @@
+  <!-- Google Maps処理 -->
+<div id="map" style="height: 400px; width: 100%; margin-top: 2rem;"></div>
+
+<script>
+  // 複数の場所データを渡す
+  const places = <%= @fav_places.to_json.html_safe %>;
+
+  function initMap() {
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: places[0].latitude, lng: places[0].longitude }, // 最初の場所を中心に設定
+      zoom: 12,
+      mapTypeId: "hybrid"
+    });
+
+    const geocoder = new google.maps.Geocoder();
+    
+    // 各場所に対してマーカーを立てる
+    places.forEach(place => {
+      const latLng = new google.maps.LatLng(place.latitude, place.longitude);
+
+      // マーカーを作成
+      const marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+        title: place.fav_name || "お気に入りの場所" // 名前がある場合、それをタイトルとして使用
+      });
+
+      // 住所を取得し、必要に応じて表示
+      geocoder.geocode({ 'location': latLng }, function(results, status) {
+        if (status === 'OK' && results[0]) {
+            const placeName = results[0].formatted_address;
+            
+            // 必要に応じてページに表示するなどの処理
+            const placeNameInput = document.getElementById('place-name');
+            if (placeNameInput) {
+              placeNameInput.value = placeName;
+            }
+        } else {
+            console.error('場所名が取得できませんでした。');
+        }
+      });
+    });
+    
+    // マーカー全体が見えるように地図の範囲を調整
+    const bounds = new google.maps.LatLngBounds();
+    places.forEach(place => {
+      bounds.extend(new google.maps.LatLng(place.latitude, place.longitude));
+    });
+    map.fitBounds(bounds); // 全てのマーカーが表示されるように地図の範囲を調整
+  }
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap"></script>
