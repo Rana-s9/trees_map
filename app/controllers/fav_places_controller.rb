@@ -13,7 +13,8 @@ class FavPlacesController < ApplicationController
   end
 
   def create
-    @fav_place = current_user.fav_places.build(fav_place_params) # ←これが必要！
+    @fav_place = current_user.fav_places.build(fav_place_params)
+    @fav_places = FavPlace.all.order(fav_name: :asc)
     # 緯度・経度が空の場合だけGeocoderを使う
     if @fav_place.latitude.blank? || @fav_place.longitude.blank?
       result = Geocoder.search(@fav_place.address).first

@@ -290,14 +290,14 @@ document.addEventListener("turbo:load", function() {
     // 3. サーバーに木のデータを送信する関数
     function sendTreeDataToServer(position, favPlaceId = null) {
         const treeData = {
-            name: "名もない木",
+            tree_name: "名もない木",
             position_x: position.x,
             position_y: position.y,
             position_z: position.z,
             fav_place_id: favPlaceId
         };
 
-        fetch('/planting_trees', {
+        fetch('/map_trees', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

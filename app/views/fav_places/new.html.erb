@@ -3,18 +3,24 @@
 
     <% if user_signed_in? %>
       <div class="mb-6">
-        <%= form_with model: @fav_place, method: :post, local: true, id: 'post-form', class: "max-w-md mx-auto p-6 bg-cream-500 rounded-2xl shadow-lg" do |f| %>
+        <%= form_with model: @fav_place, url: fav_places_path(region: @region), method: :post, local: true, id: 'post-form', class: "max-w-md mx-auto p-6 bg-cream-500 rounded-2xl shadow-lg" do |f| %>
 
           <!-- 場所名入力 -->
           <div class="mb-4">
-            <%= f.label :fav_name, "場所の名前 (表示されます) ", class: "block text-white text-sm font-bold mb-2" %>
+            <%= f.label :fav_name, "場所の名前", class: "block text-white text-sm font-bold mb-2" %>
             <%= f.text_field :fav_name, id: "place-name", class: "w-full px-4 py-2 bg-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" %>
           </div>
 
           <!-- 住所入力（Place検索用） -->
           <div class="mb-4">
-            <%= f.label :address, "住所 もしくは場所名（入力）", class: "block text-white text-sm font-bold mb-2" %>
+            <%= f.label :address, "住所（もしくは場所名）", class: "block text-white text-sm font-bold mb-2" %>
             <%= f.text_field :address, id: "address-input", class: "w-full px-4 py-2 bg-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+          </div>
+
+          <!-- 緯度・経度の表示（非入力フォーム） -->
+          <div class="mb-4 text-white">
+            緯度: <span id="lat-value">-</span><br>
+            経度: <span id="lng-value">-</span>
           </div>
 
           <!-- 地図表示 -->
@@ -121,19 +127,15 @@
     <% end %>
   </div>
   <div class="w-full lg:w-1/4">
-    <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
+    <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
     <div class="rounded-lg shadow-lg p-4">
         <h2 class="text-lg font-bold text-white mb-4">参考🌳登録済みの場所一覧🌳</h2>
         <ul class="space-y-3">
-          <% if @fav_places.present? %>
-            <% @fav_places.each do |fav_place| %>
-              <li class="border-b pb-2">
-                <p class="text-green-600 font-semibold"><%= fav_place.fav_name %></p>
-                <p class="text-white text-sm"><%= fav_place.address %></p>
-              </li>
-            <% end %>
-          <% else %>
-            <p class="text-white text-center text-lg">登録場所はまだありません</p>
+          <% @fav_places.each do |fav_place| %>
+            <li class="border-b pb-2">
+              <p class="text-green-600 font-semibold"><%= fav_place.fav_name %></p>
+              <p class="text-white text-sm"><%= fav_place.address %></p>
+            </li>
           <% end %>
         </ul>
       </div>
