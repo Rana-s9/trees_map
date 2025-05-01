@@ -227,7 +227,7 @@ document.addEventListener("turbo:load", function() {
             
             scene.add(clonedTree);
 
-            const labelText1 = `${tree.name} / ${tree.user_name} `;
+            const labelText1 = `${tree.tree_name} / ${tree.user_name} `;
             const labelText2 = tree.fav_name? `${tree.fav_name}` : "random";
             const textSprite = createTextSprite(labelText1, labelText2);
             textSprite.position.set(position.x, position.y + 15, position.z);
@@ -309,8 +309,7 @@ document.addEventListener("turbo:load", function() {
         .then(data => {
             if (data.status === 'success') {
                 console.log('木が保存されました:', data.tree)
-            } else {
-                console.error('保存エラー:', data.errors);
+                console.error('保存エラー:', data.errors)
             }
         })
         .catch(error => console.error('送信エラー:', error));

@@ -179,7 +179,7 @@
         const position = { x, y, z };
         clonedTree.position.set(position.x, position.y, position.z);
         scene.add(clonedTree);
-        const labelText1 = `${tree.name} / ${tree.user_name} `;
+        const labelText1 = `${tree.tree_name} / ${tree.user_name} `;
         const labelText2 = tree.fav_name ? `${tree.fav_name}` : "random";
         const textSprite = createTextSprite(labelText1, labelText2);
         textSprite.position.set(position.x, position.y + 15, position.z);
@@ -241,7 +241,6 @@
       }).then((response) => response.json()).then((data) => {
         if (data.status === "success") {
           console.log("\u6728\u304C\u4FDD\u5B58\u3055\u308C\u307E\u3057\u305F:", data.tree);
-        } else {
           console.error("\u4FDD\u5B58\u30A8\u30E9\u30FC:", data.errors);
         }
       }).catch((error) => console.error("\u9001\u4FE1\u30A8\u30E9\u30FC:", error));
