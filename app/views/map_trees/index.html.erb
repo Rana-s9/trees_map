@@ -1,5 +1,5 @@
 <header class ="relative">
-  <h1 class="text-white text-2xl">場所を追加➡植林しよう。ズームしたり色々な角度から眺めてみてね。<br>現在のすべての🌳<%= @trees_count %>本</h1><br>
+  <h1 class="text-white text-2xl">場所を追加➡植林しよう。ズームしたり色々な角度から眺めてみてね。<br>現在のすべての🌳<span id="trees-count"><%= @trees_count %></span>本</h1><br>
   <%= link_to "TOP",root_path, data: { turbo: false },class: "w-200 bg-lemon hover:bg-green-600 text-gray font-bold py-2 px-4 rounded-md shadow-md transition" %>
   <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-light-pink hover:bg-green-600 text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
   <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-green-600 text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
@@ -49,7 +49,12 @@
       <% if @trees_id_name.empty? %>
         <h1 class="text-white text-2xl">まだ<%= current_user.user_name %>さんは🌳を植えていません</h1>
       <% else %>
-        <h1 class="text-white text-xl"><%= current_user.user_name %>さんの🌳<%= @tree_count %>本：<%= @trees_id_name %></h1>
+        <h1 class="text-white text-xl"><%= current_user.user_name %>さんの🌳<span id="user-tree-count"><%= @tree_count %></span>本：</h1>
+        <ul id="tree-list" class="text-gray">
+          <% @trees_id_name.each do |item| %>
+            <li>🌳 <%= item[:tree] %>/<%= item[:fav] || '未設定' %> </li>
+          <% end %>
+        </ul>
       <% end %>
   <% else %>
     <h1 class="text-white text-xl">ログインして植林しよう🌳</h1>

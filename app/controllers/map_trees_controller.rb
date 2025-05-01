@@ -20,7 +20,7 @@ class MapTreesController < ApplicationController
     fav_names = current_user.fav_places.pluck(:fav_name)
       if @tree.save
       # 保存成功時の処理
-        render json: { status: 'success', tree: @tree.as_json, user_name: current_user.user_name, fav_names: fav_names }, status: :created
+        render json: { status: 'success', tree: @tree.as_json, user_name: current_user.user_name, fav_names: fav_names, trees_count: Tree.count, tree_count: current_user.trees.count  }, status: :created
       else
       # 保存失敗時の処理
         render json: { status: 'error', errors: @tree.errors.full_messages }, status: :unprocessable_entity
@@ -40,17 +40,18 @@ class MapTreesController < ApplicationController
     end
     
     @trees_count = Tree.count
+    @tree_count = current_user.trees.count
 
-    if current_user
-      @tree_count = current_user.trees.count
-      @trees_id_name = current_user.trees.order(created_at: :asc).map do |tree|
-        {
-          tree: tree.tree_name,
-          fav: tree.fav_place&.fav_name
-      }
-      end
-    else
-      @trees_id_name = []
+    @trees_id_name = []
+
+    trees = current_user.trees.includes(:fav_place).order(:created_at)
+
+    trees.each do |tree|
+      tree_name = tree.tree_name
+      fav_place = tree.fav_place
+      fav_name = fav_place.present? ? fav_place.fav_name : nil
+
+      @trees_id_name << { tree: tree_name, fav: fav_name }
     end
   end
 

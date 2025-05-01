@@ -306,6 +306,20 @@ document.addEventListener("turbo:load", function() {
                         fav_name: data.fav_names[data.fav_names.length - 1]
                     };
                     cloneTreeWithoutSaving(treeWith);
+
+                    const treeList = document.getElementById('tree-list');
+                    if (treeList) {
+                        const newTreeItem = document.createElement('li');
+                        newTreeItem.textContent = `🌳 ${treeWith.tree_name}/ ${treeWith.fav_name || '未設定'}`;
+                        treeList.appendChild(newTreeItem);
+                    }
+
+                    document.getElementById('tree-name').textContent = treeWith.tree_name;
+                    document.getElementById('fav-name').textContent = treeWith.fav_name;
+
+                    updateTreeCount(data.trees_count);
+                    updateUserTreeCount(data.tree_count);
+
                 } else {
                     if (data.errors) {
                         console.error('保存エラー:', data.errors);
@@ -315,6 +329,20 @@ document.addEventListener("turbo:load", function() {
                 }
             })
                 .catch(error => console.error('送信エラー:', error));
+
+                function updateTreeCount(count) {
+                    const treesCountElement = document.getElementById('trees-count');
+                    if (treesCountElement) {
+                        treesCountElement.textContent = count;
+                    }
+                }
+
+                function updateUserTreeCount(count) {
+                    const userTreeCountElement = document.getElementById('user-tree-count');
+                    if (userTreeCountElement) {
+                        userTreeCountElement.textContent = count;
+                    }
+                }
         }
     });
 

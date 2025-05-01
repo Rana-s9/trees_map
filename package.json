@@ -6,10 +6,10 @@
     "sass": "^1.87.0"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/javascripts --public-path=/assets",
-    "build:custom": "esbuild app/javascript/custom/*.js --bundle --sourcemap --outdir=app/assets/javascripts --public-path=assets",
-    "build:application": "esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/javascripts --public-path=/assets",
-    "build:map": "sass ./app/assets/stylesheets/components:./app/assets/stylesheets --no-source-map --load-path=node_modules"
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
+    "build:custom": "esbuild app/javascript/custom/*.js --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "build:application": "esbuild app/javascript/application.js --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
+    "build:map": "sass ./app/assets/stylesheets/components:./app/assets/builds --no-source-map --load-path=node_modules"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
