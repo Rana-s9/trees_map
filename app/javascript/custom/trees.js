@@ -42,7 +42,7 @@ document.addEventListener("turbo:load", function() {
         },
         east: {
             // 日本（東）方向を見る
-            position: new THREE.Vector3(13471.9972 / 3, 150, 8294.7173 / 3),
+            position: new THREE.Vector3(15471.9972 / 3, 150, 8294.7173 / 3),
             lookAt: new THREE.Vector3(18471.9972 / 3, 0, 8294.7173 / 3)
         },
         west: {
@@ -95,8 +95,8 @@ document.addEventListener("turbo:load", function() {
             lookAt: new THREE.Vector3(11707.6530 / 3, 0, 2951.3853 / 3)
         },
         antarctic: {
-            position: new THREE.Vector3(18350.0799 / 3, 150, 19747.1103 / 3),
-            lookAt: new THREE.Vector3(18350.0799 / 3, 0, 19697.1102 / 3)
+            position: new THREE.Vector3(10481.6013 / 3, 150, 17310.2432 / 3),
+            lookAt: new THREE.Vector3(10481.6013 / 3, 0, 17260.2432 / 3)
         }
     };    
 

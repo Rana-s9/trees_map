@@ -32,7 +32,7 @@
       // エジプト
       "btn-arctic": { lat: 80, lng: 0 },
       // 北極圏
-      "btn-antarctic": { lat: -80, lng: 0 }
+      "btn-antarctic": { lat: -75.25, lng: -0.07 }
       // 南極圏
     };
     Object.entries(cameraFocusMap).forEach(([btnId, coords]) => {

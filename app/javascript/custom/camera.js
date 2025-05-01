@@ -16,7 +16,7 @@ const cameraFocusMap = {
     "btn-middle-east": { lat: 23.8859, lng: 45.0792 },    // サウジアラビア
     "btn-north-africa": { lat: 26.8206, lng: 30.8025 },   // エジプト
     "btn-arctic": { lat: 80.0, lng: 0.0 },                // 北極圏
-    "btn-antarctic": { lat: -80.0, lng: 0.0 }             // 南極圏
+    "btn-antarctic": { lat: -75.25, lng: -0.07 }             // 南極圏
 };
 
 Object.entries(cameraFocusMap).forEach(([btnId, coords]) => {
