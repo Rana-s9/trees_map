@@ -277,43 +277,53 @@ document.addEventListener("turbo:load", function() {
             cloneTreeWithSaving(position, favId); // ここで保存付きで追加
         });        
 
+        // 3. サーバーに木のデータを送信する関数
+        function sendTreeDataToServer(position, favPlaceId = null) {
+            const treeData = {
+                tree_name: "名もない木",
+                position_x: position.x,
+                position_y: position.y,
+                position_z: position.z,
+                fav_place_id: favPlaceId
+            };
+
+            fetch('/map_trees', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+                },
+                body: JSON.stringify({ tree: treeData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    console.log('木が保存されました:', data.tree);
+
+                    const treeWith = {
+                        ...data.tree,
+                        user_name: data.user_name,
+                        fav_name: data.fav_names[data.fav_names.length - 1]
+                    };
+                    cloneTreeWithoutSaving(treeWith);
+                } else {
+                    if (data.errors) {
+                        console.error('保存エラー:', data.errors);
+                    } else {
+                        console.error('保存エラー: 不明なエラー');
+                    }
+                }
+            })
+                .catch(error => console.error('送信エラー:', error));
+        }
     });
 
-    // アニメーションループ
     function animate() {
         requestAnimationFrame(animate);
         controls.update();
         renderer.render(scene, camera);
     }
     animate();
-
-    // 3. サーバーに木のデータを送信する関数
-    function sendTreeDataToServer(position, favPlaceId = null) {
-        const treeData = {
-            tree_name: "名もない木",
-            position_x: position.x,
-            position_y: position.y,
-            position_z: position.z,
-            fav_place_id: favPlaceId
-        };
-
-        fetch('/map_trees', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
-            },
-            body: JSON.stringify({ tree: treeData })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                console.log('木が保存されました:', data.tree)
-                console.error('保存エラー:', data.errors)
-            }
-        })
-        .catch(error => console.error('送信エラー:', error));
-    }
 
     // ウィンドウサイズ変更時にレンダラーとカメラを調整
     window.addEventListener('resize', () => {

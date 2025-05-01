@@ -24,21 +24,6 @@
         map: map,
         title: place.fav_name || "お気に入りの場所" // 名前がある場合、それをタイトルとして使用
       });
-
-      // 住所を取得し、必要に応じて表示
-      geocoder.geocode({ 'location': latLng }, function(results, status) {
-        if (status === 'OK' && results[0]) {
-            const placeName = results[0].formatted_address;
-            
-            // 必要に応じてページに表示するなどの処理
-            const placeNameInput = document.getElementById('place-name');
-            if (placeNameInput) {
-              placeNameInput.value = placeName;
-            }
-        } else {
-            console.error('場所名が取得できませんでした。');
-        }
-      });
     });
     
     // マーカー全体が見えるように地図の範囲を調整
@@ -49,5 +34,3 @@
     map.fitBounds(bounds); // 全てのマーカーが表示されるように地図の範囲を調整
   }
 </script>
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap"></script>

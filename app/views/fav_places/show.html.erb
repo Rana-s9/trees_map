@@ -49,21 +49,6 @@
 
     const geocoder = new google.maps.Geocoder();
     const latLng = new google.maps.LatLng(lat, lng);
-
-    geocoder.geocode({ 'location': latLng }, function(results, status) {
-        if (status === 'OK' && results[0]) {
-            const placeName = results[0].formatted_address;
-            
-            // 必要に応じて、ページに表示するなどの処理を追加
-            const placeNameInput = document.getElementById('place-name');
-            if (placeNameInput) {
-            placeNameInput.value = placeName;
-            }
-        } else {
-            console.error('場所名が取得できませんでした。');
-        }
-    });
   }
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap"></script>

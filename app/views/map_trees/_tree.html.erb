@@ -40,16 +40,6 @@
       marker.addListener("click", function () {
       infoWindow.open(map, marker);
       });
-
-      geocoder.geocode({ location: latLng }, function(results, status) {
-      if (status === 'OK' && results[0]) {
-          const placeName = results[0].formatted_address;
-          const placeNameInput = document.getElementById('place-name');
-          if (placeNameInput) placeNameInput.value = placeName;
-      } else {
-          console.error('場所名が取得できませんでした。');
-      }
-      });
   });
 
       const bounds = new google.maps.LatLngBounds();
@@ -59,8 +49,6 @@
       map.fitBounds(bounds);
   }
 </script>
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap"></script>
 
 <%= link_to "みんなの植林ログ", all_trees_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
 <% if user_signed_in? %>

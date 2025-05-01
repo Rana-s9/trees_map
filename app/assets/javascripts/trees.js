@@ -216,6 +216,39 @@
         const position = { x: favX, y: 0, z: favZ };
         cloneTreeWithSaving(position, favId);
       });
+      function sendTreeDataToServer(position, favPlaceId = null) {
+        const treeData = {
+          tree_name: "\u540D\u3082\u306A\u3044\u6728",
+          position_x: position.x,
+          position_y: position.y,
+          position_z: position.z,
+          fav_place_id: favPlaceId
+        };
+        fetch("/map_trees", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document.querySelector('[name="csrf-token"]').content
+          },
+          body: JSON.stringify({ tree: treeData })
+        }).then((response) => response.json()).then((data) => {
+          if (data.status === "success") {
+            console.log("\u6728\u304C\u4FDD\u5B58\u3055\u308C\u307E\u3057\u305F:", data.tree);
+            const treeWith = {
+              ...data.tree,
+              user_name: data.user_name,
+              fav_name: data.fav_names[data.fav_names.length - 1]
+            };
+            cloneTreeWithoutSaving(treeWith);
+          } else {
+            if (data.errors) {
+              console.error("\u4FDD\u5B58\u30A8\u30E9\u30FC:", data.errors);
+            } else {
+              console.error("\u4FDD\u5B58\u30A8\u30E9\u30FC: \u4E0D\u660E\u306A\u30A8\u30E9\u30FC");
+            }
+          }
+        }).catch((error) => console.error("\u9001\u4FE1\u30A8\u30E9\u30FC:", error));
+      }
     });
     function animate() {
       requestAnimationFrame(animate);
@@ -223,28 +256,6 @@
       renderer.render(scene, camera);
     }
     animate();
-    function sendTreeDataToServer(position, favPlaceId = null) {
-      const treeData = {
-        tree_name: "\u540D\u3082\u306A\u3044\u6728",
-        position_x: position.x,
-        position_y: position.y,
-        position_z: position.z,
-        fav_place_id: favPlaceId
-      };
-      fetch("/map_trees", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": document.querySelector('[name="csrf-token"]').content
-        },
-        body: JSON.stringify({ tree: treeData })
-      }).then((response) => response.json()).then((data) => {
-        if (data.status === "success") {
-          console.log("\u6728\u304C\u4FDD\u5B58\u3055\u308C\u307E\u3057\u305F:", data.tree);
-          console.error("\u4FDD\u5B58\u30A8\u30E9\u30FC:", data.errors);
-        }
-      }).catch((error) => console.error("\u9001\u4FE1\u30A8\u30E9\u30FC:", error));
-    }
     window.addEventListener("resize", () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
