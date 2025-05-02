@@ -23,6 +23,6 @@ class MyTreesController < ApplicationController
   private
 
   def tree_params
-      params.require(:tree).permit(:name, :position_x, :position_y, :position_z)
+      params.require(:tree).permit(:tree_name, :position_x, :position_y, :position_z)
   end
 end

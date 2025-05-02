@@ -314,9 +314,6 @@ document.addEventListener("turbo:load", function() {
                         treeList.appendChild(newTreeItem);
                     }
 
-                    document.getElementById('tree-name').textContent = treeWith.tree_name;
-                    document.getElementById('fav-name').textContent = treeWith.fav_name;
-
                     updateTreeCount(data.trees_count);
                     updateUserTreeCount(data.tree_count);
 

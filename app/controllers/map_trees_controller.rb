@@ -40,19 +40,24 @@ class MapTreesController < ApplicationController
     end
     
     @trees_count = Tree.count
-    @tree_count = current_user.trees.count
 
-    @trees_id_name = []
+    if current_user
+      @tree_count = current_user.trees.count
 
-    trees = current_user.trees.includes(:fav_place).order(:created_at)
+      @trees_id_name = []
 
-    trees.each do |tree|
-      tree_name = tree.tree_name
-      fav_place = tree.fav_place
-      fav_name = fav_place.present? ? fav_place.fav_name : nil
+      trees = current_user.trees.includes(:fav_place).order(:created_at)
 
-      @trees_id_name << { tree: tree_name, fav: fav_name }
+      trees.each do |tree|
+        tree_name = tree.tree_name
+        fav_place = tree.fav_place
+        fav_name = fav_place.present? ? fav_place.fav_name : nil
+
+        @trees_id_name << { tree: tree_name, fav: fav_name }
+      end
     end
+
+    
   end
 
   private

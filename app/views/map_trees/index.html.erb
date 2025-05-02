@@ -50,11 +50,11 @@
         <h1 class="text-white text-2xl">まだ<%= current_user.user_name %>さんは🌳を植えていません</h1>
       <% else %>
         <h1 class="text-white text-xl"><%= current_user.user_name %>さんの🌳<span id="user-tree-count"><%= @tree_count %></span>本：</h1>
-        <ul id="tree-list" class="text-gray">
-          <% @trees_id_name.each do |item| %>
-            <li>🌳 <%= item[:tree] %>/<%= item[:fav] || '未設定' %> </li>
+        <h1 id="tree-list" class="text-sage-green">
+          <% @trees_id_name.each do |name| %>
+            🌳 <%= name[:tree] %>/<%= name[:fav] || '未設定' %>
           <% end %>
-        </ul>
+        </h1>
       <% end %>
   <% else %>
     <h1 class="text-white text-xl">ログインして植林しよう🌳</h1>
