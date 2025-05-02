@@ -52,7 +52,7 @@
 
 <%= link_to "みんなの植林ログ", all_trees_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
 <% if user_signed_in? %>
-  <button id="addTreeButton" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">ランダム位置に木を植える</button>
+  <!--button id="addTreeButton" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">ランダム位置に木を植える</button>-->
   <%= link_to "あなたの植林ログ", my_trees_path,data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
 <% end %>
 <div class="border-b border-white mb-6"></div>

@@ -25,14 +25,17 @@
   <br>
   <% if user_signed_in? %>
       <% if current_user.trees.count < 10 %>
-        <div id="till-10" class="btn btn-gray text-coral text-xl" disabled>10本まで植林できます🌳</div>
+        <div id="till-10" class="btn btn-gray text-light-salmon text-xl" disabled>10本まで植林できます🌳</div>
         <div id="already-10" class="btn btn-gray text-pink-red text-xl hidden" disabled>すでに10本植林しました!</div> <!--非同期用-->
+        <% if current_user.places_no_trees.empty? %>
+          <h1 class="text-light-pink">新しく場所を追加してください📍</h1>
+        <% end %>
       <% else %>
         <div class="btn btn-gray text-pink-red text-xl" disabled>すでに10本植林しました!</div>
       <% end %>
       <% if current_user.places_no_trees.exists? %>
         <p id="no-tree-msg" class="text-white">まだ木が植えられていない場所があります🌳</p>
-        <!-- 選択肢のドロップダウン -->
+        <!-- 選択肢 -->
         <div id="select-block" class="mb-4">
           <label for="fav_place_select" class="text-white">場所を選んでください：</label>
           <select id="fav_place_select" class="w-40 px-4 py-2 rounded-md bg-gray text-white">

@@ -17,4 +17,5 @@ class User < ApplicationRecord
   def places_no_trees
     fav_places.left_outer_joins(:tree).where(trees: { id:nil })
   end
+
 end
