@@ -11,3 +11,15 @@
 }
 
 */
+
+.Notification {
+  @apply text-center;
+}
+
+.Notification .notice {
+  @apply bg-[#38AEF0] text-white text-center;
+}
+
+.Notification .alert {
+  @apply bg-[#F35500] text-white text-center;
+}

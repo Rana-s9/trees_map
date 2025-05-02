@@ -114,6 +114,7 @@ GEM
     devise-i18n (1.13.0)
       devise (>= 4.9.0)
       rails-i18n
+    devise-i18n-views (0.3.7)
     dotenv (3.1.8)
     dotenv-rails (3.1.8)
       dotenv (= 3.1.8)
@@ -408,6 +409,7 @@ DEPENDENCIES
   debug
   devise
   devise-i18n
+  devise-i18n-views
   dotenv-rails
   geocoder
   google_places

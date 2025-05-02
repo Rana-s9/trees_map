@@ -53,7 +53,7 @@
 <%= link_to "みんなの植林ログ", all_trees_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
 <% if user_signed_in? %>
   <!--button id="addTreeButton" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">ランダム位置に木を植える</button>-->
-  <%= link_to "あなたの植林ログ", my_trees_path,data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
+  <%= link_to "#{current_user.user_name} の植林ログ", my_trees_path,data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
 <% end %>
 <div class="border-b border-white mb-6"></div>
 <div class="btn btn-gray text-white text-xl font-bold" disabled>国・地域カメラ📸（木を見る視点を変えて、あなたの木を発見👀）</div>
