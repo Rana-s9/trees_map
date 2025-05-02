@@ -300,18 +300,46 @@ document.addEventListener("turbo:load", function() {
                 if (data.status === 'success') {
                     console.log('木が保存されました:', data.tree);
 
+                    const selectTree = document.getElementById('fav_place_select');
+                    const selectedOption = selectTree.options[selectTree.selectedIndex];
+                    let selectedFavName = selectedOption ? selectedOption.textContent : 'ランダム位置';
+
+                    if (selectedOption) {
+                        selectedOption.remove();
+                    }
+
                     const treeWith = {
                         ...data.tree,
                         user_name: data.user_name,
-                        fav_name: data.fav_names[data.fav_names.length - 1]
+                        fav_name: selectedFavName
                     };
                     cloneTreeWithoutSaving(treeWith);
 
+                    if (selectTree.options.length <= 1){
+                        const msgTree = document.getElementById('no-tree-msg');
+                        if (msgTree) msgTree.remove();
+
+                        const selectBlock = document.getElementById('select-block');
+                        if (selectBlock) selectBlock.remove();
+                    }
+
+                    if (data.tree_count >= 10){
+                        const till10 = document.getElementById('till-10');
+                        if (till10){
+                            till10.remove();
+                        }
+
+                        const already10 = document.getElementById('already-10');
+                        if (already10){
+                            already10.classList.remove('hidden');
+                        }
+                    }
+
                     const treeList = document.getElementById('tree-list');
                     if (treeList) {
-                        const newTreeItem = document.createElement('li');
-                        newTreeItem.textContent = `🌳 ${treeWith.tree_name}/ ${treeWith.fav_name || '未設定'}`;
-                        treeList.appendChild(newTreeItem);
+                        const newTree = document.createElement('li');
+                        newTree.textContent = `🌳 ${treeWith.tree_name}/ ${treeWith.fav_name || 'まだ木がありません'}`;
+                        treeList.appendChild(newTree);
                     }
 
                     updateTreeCount(data.trees_count);

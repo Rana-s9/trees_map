@@ -24,6 +24,7 @@
 
             <div class="mt-4 text-sm text-gray-500">
               <p><strong>木ID:</strong> <%= @tree.id %></p>
+              <p><strong>植林場所</strong> <%= @tree.fav_place&.fav_name || "植林場所が未設定です" %></p>
               <p><strong>植えた日時:</strong> <%= l(@tree.created_at, format: :long) %></p>
               <p><strong>植えた人:</strong> <%= @tree.user.user_name %></p>
             </div>
