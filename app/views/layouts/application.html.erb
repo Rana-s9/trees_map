@@ -28,7 +28,7 @@
 
 
     <% flash.each do |key, message| %>
-      <% text_color = key == "notice" ? "text-green-600" : "text-pink-red" %>
+      <% text_color = key == "notice" ? "text-lemon" : "text-pink-red" %>
       <div class="flash <%= key %> <%= text_color %> font-semibold">
         <%= message %>
       </div>

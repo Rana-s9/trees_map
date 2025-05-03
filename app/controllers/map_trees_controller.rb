@@ -56,8 +56,6 @@ class MapTreesController < ApplicationController
         @trees_id_name << { tree: tree_name, fav: fav_name }
       end
     end
-
-    
   end
 
   private

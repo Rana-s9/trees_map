@@ -16,8 +16,17 @@ class MyTreesController < ApplicationController
       if @tree.update(tree_params)
           redirect_to my_trees_path, notice: "あなたの木に命名しました"
       else
-          render :edit
+          render :edit, alert: "木の命名に失敗しました", status: :unprocessable_entity
       end
+  end
+
+  def destroy
+    @tree = Tree.find(params[:id])
+    if @tree.destroy
+      redirect_to my_trees_path, notice: "木の削除に成功しました"
+    else
+      render :edit, alert: "木の削除に失敗しました", status: :unprocessable_entity
+    end
   end
 
   private

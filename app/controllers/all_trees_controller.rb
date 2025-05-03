@@ -16,7 +16,7 @@ class AllTreesController < ApplicationController
     if @tree.update(tree_params)
       redirect_to all_trees_path, notice: "あなたの木に命名しました"
     else
-      render :edit
+      render :edit, alert: "木の命名に失敗しました"
     end
   end
 
