@@ -28,7 +28,10 @@
 
 
     <% flash.each do |key, message| %>
-      <div class="flash <%= key %>"><%= message %></div>
+      <% text_color = key == "notice" ? "text-green-600" : "text-pink-red" %>
+      <div class="flash <%= key %> <%= text_color %> font-semibold">
+        <%= message %>
+      </div>
     <% end %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
