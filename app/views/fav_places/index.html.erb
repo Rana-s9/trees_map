@@ -21,9 +21,17 @@
               <strong>場所名:</strong>
               <%= link_to fav_place.fav_name, fav_place_path(fav_place), class: "text-green-600 underline hover:text-green-800" %>
             </p>
-            <p><strong>保存ユーザー:</strong> <%= fav_place.user.user_name %></p>
-            <p><strong>保存日時:</strong> <%= l(fav_place.created_at, format: :long) %></p>
-            <p><strong>住所</strong> <%= fav_place.address %></p>
+            <p>
+              <strong>ユーザー:</strong>
+              <span class="<%= "text-pink-red font-bold" if fav_place.user == current_user %>">
+                <%= fav_place.user.user_name %>
+              </span>
+            </p>
+            <p><strong>登録日時:</strong> <%= l(fav_place.created_at, format: :long) %></p>
+            <p><strong>住所</strong> <%= fav_place.address %></p><br>
+            <% if fav_place.user == current_user %>
+              <%= link_to '削除', fav_place_path(fav_place), data: { turbo_method: :delete, turbo_confirm: "この場所に既に植林している場合、木も削除されます🌳本当に削除しますか？"}, class: "bg-red-500 hover:bg-light-salmon font-bold py-2 px-4 rounded shadow" %>
+            <% end %>
           </div>
         <% end %>
       </div>

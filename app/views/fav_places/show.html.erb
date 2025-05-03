@@ -16,8 +16,8 @@
 
                   <p class="text-sm text-gray-700">
                     <strong>場所ID:</strong> <%= @fav_place.id %><br>
-                    <strong>保存日時:</strong> <%= l(@fav_place.created_at, format: :long) %><br>
-                    <strong>保存ユーザー:</strong> <%= @fav_place.user.user_name %>
+                    <strong>登録日時:</strong> <%= l(@fav_place.created_at, format: :long) %><br>
+                    <strong>ユーザー:</strong> <%= @fav_place.user.user_name %>
                     <strong>住所:</strong> <%= @fav_place.address %>
                   </p>
                   <div class="flex justify-end">
