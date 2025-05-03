@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   registrations: 'users/registrations'
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :fav_places, only: %i[new create index edit update show]
+  resources :fav_places, only: %i[new create index show destroy]
   resources :map_trees, only: %i[index create]
   resources :my_trees, only: %i[index edit update show destroy]
-  resources :all_trees, only: %i[index edit update show destroy]
+  resources :all_trees, only: %i[index edit update show]
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

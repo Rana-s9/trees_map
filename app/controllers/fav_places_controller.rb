@@ -39,6 +39,15 @@ class FavPlacesController < ApplicationController
     end
   end
 
+  def destroy
+    @fav_place = FavPlace.find(params[:id])
+    if @fav_place.destroy
+      redirect_to fav_places_path, notice: "場所の削除に成功しました"
+    else
+      render :index, alert: "場所削除に失敗しました", status: :unprocessable_entity
+    end
+  end
+
   private
 
   def fav_place_params
