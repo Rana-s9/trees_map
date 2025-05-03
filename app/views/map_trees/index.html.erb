@@ -1,8 +1,8 @@
 <header class ="relative">
-  <h1 class="text-white text-2xl">場所を追加➡植林しよう。ズームしたり色々な角度から眺めてみてね。<br>現在のすべての🌳<span id="trees-count"><%= @trees_count %></span>本</h1><br>
-  <%= link_to "TOP",root_path, data: { turbo: false },class: "w-200 bg-lemon hover:bg-green-600 text-gray font-bold py-2 px-4 rounded-md shadow-md transition" %>
-  <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-light-pink hover:bg-green-600 text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
-  <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-green-600 text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
+  <h1 class="text-white text-2xl">場所を追加➡植林しよう！ズームしたり色々な角度から眺めてみてね。<br>現在のすべての🌳<span id="trees-count"><%= @trees_count %></span>本</h1><br>
+  <%= link_to "TOP",root_path, data: { turbo: false },class: "w-200 bg-lemon hover:bg-dry-khaki text-gray font-bold py-2 px-4 rounded-md shadow-md transition" %>
+  <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-light-pink hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
+  <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
 </header>
 <div id="map-container">
   <div id="map"></div>
@@ -28,7 +28,9 @@
         <div id="till-10" class="btn btn-gray text-light-salmon text-xl" disabled>10本まで植林できます🌳</div>
         <div id="already-10" class="btn btn-gray text-pink-red text-xl hidden" disabled>すでに10本植林しました!</div> <!--非同期用-->
         <% if current_user.places_no_trees.empty? %>
-          <h1 class="text-light-pink">新しく場所を追加してください📍</h1>
+          <div class="centered-message">
+            <h1 class="text-light-pink">新しい場所を追加してください📍</h1>
+          </div>
         <% end %>
       <% else %>
         <div class="btn btn-gray text-pink-red text-xl" disabled>すでに10本植林しました!</div>

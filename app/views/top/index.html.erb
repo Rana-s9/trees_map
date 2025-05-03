@@ -2,8 +2,10 @@
   <h1 class="text-white text-4xl">🌏植林世界地図🌳</h1><br>
   <% if current_user %>
     <%= link_to "木を植えに行く",map_trees_path, data: { turbo: false }, class: "w-200 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
+    <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-light-pink hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
   <% else %>
-    <%= link_to "木を見に行く",map_trees_path, data: { turbo: false }, class: "w-200 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %><br>
+    <%= link_to "木を見に行く",map_trees_path, data: { turbo: false }, class: "w-200 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
+    <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
   <% end %>
   <br>
 </header>

@@ -6,7 +6,7 @@ class MapTreesController < ApplicationController
       respond_to do |format|
         format.html do
           flash[:alert] = "1人あたり10本までしか木を植えられません。"
-          redirect_to planting_trees_path
+          redirect_to map_trees_path
         end
         format.json do
           render json: { status: 'error', message: '1人あたり10本までしか木を植えられません。' }, status: :forbidden

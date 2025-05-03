@@ -248,21 +248,21 @@ document.addEventListener("turbo:load", function() {
         });
 
         // ボタンがクリックされたときだけ、保存付きで木を追加
-        document.getElementById('addTreeButton').addEventListener('click', () => {
-            const scale = 1.5;
+        // document.getElementById('addTreeButton').addEventListener('click', () => {
+        //     const scale = 1.5;
 
-            const minX = 9953.7215 / scale;
-            const maxX = 18471.9972 / scale;
+        //     const minX = 9953.7215 / scale;
+        //     const maxX = 18471.9972 / scale;
 
-            const minZ = 6166.8548 / scale;
-            const maxZ = 17451.7876 / scale;
-            const randomPosition = {
-                x: Math.random() * (maxX - minX) + minX,
-                y: 0,
-                z: Math.random() * (maxZ - minZ) + minZ
-            };
-            cloneTreeWithSaving(randomPosition, null);
-        });
+        //     const minZ = 6166.8548 / scale;
+        //     const maxZ = 17451.7876 / scale;
+        //     const randomPosition = {
+        //         x: Math.random() * (maxX - minX) + minX,
+        //         y: 0,
+        //         z: Math.random() * (maxZ - minZ) + minZ
+        //     };
+        //     cloneTreeWithSaving(randomPosition, null);
+        // });
 
         document.getElementById('addFavTreeButton')?.addEventListener('click', () => {
             const select = document.getElementById('fav_place_select');

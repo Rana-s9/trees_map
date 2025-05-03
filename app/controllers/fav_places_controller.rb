@@ -13,6 +13,12 @@ class FavPlacesController < ApplicationController
   end
 
   def create
+
+    if current_user.fav_places.count >= 10
+      flash[:alert] = "1人あたり10のエリアまで登録できます。"
+      redirect_to new_fav_place_path and return
+    end
+
     @fav_place = current_user.fav_places.build(fav_place_params)
     @fav_places = FavPlace.all.order(fav_name: :asc)
     # 緯度・経度が空の場合だけGeocoderを使う
@@ -26,8 +32,7 @@ class FavPlacesController < ApplicationController
 
     if @fav_place.save
       respond_to do |format|
-        format.html { redirect_to fav_places_path, notice: '保存しました' }
-        # format.turbo_stream
+        format.html { redirect_to new_fav_place_path, notice: '保存しました' }
       end
     else
       render :new, status: :unprocessable_entity
