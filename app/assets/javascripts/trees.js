@@ -194,19 +194,6 @@
       trees.forEach((tree) => {
         cloneTreeWithoutSaving(tree);
       });
-      document.getElementById("addTreeButton").addEventListener("click", () => {
-        const scale = 1.5;
-        const minX = 9953.7215 / scale;
-        const maxX = 18471.9972 / scale;
-        const minZ = 6166.8548 / scale;
-        const maxZ = 17451.7876 / scale;
-        const randomPosition = {
-          x: Math.random() * (maxX - minX) + minX,
-          y: 0,
-          z: Math.random() * (maxZ - minZ) + minZ
-        };
-        cloneTreeWithSaving(randomPosition, null);
-      });
       document.getElementById("addFavTreeButton")?.addEventListener("click", () => {
         const select = document.getElementById("fav_place_select");
         const selectedOption = select.selectedOptions[0];
@@ -234,12 +221,42 @@
         }).then((response) => response.json()).then((data) => {
           if (data.status === "success") {
             console.log("\u6728\u304C\u4FDD\u5B58\u3055\u308C\u307E\u3057\u305F:", data.tree);
+            const selectTree = document.getElementById("fav_place_select");
+            const selectedOption = selectTree.options[selectTree.selectedIndex];
+            let selectedFavName = selectedOption ? selectedOption.textContent : "\u30E9\u30F3\u30C0\u30E0\u4F4D\u7F6E";
+            if (selectedOption) {
+              selectedOption.remove();
+            }
             const treeWith = {
               ...data.tree,
               user_name: data.user_name,
-              fav_name: data.fav_names[data.fav_names.length - 1]
+              fav_name: selectedFavName
             };
             cloneTreeWithoutSaving(treeWith);
+            if (selectTree.options.length <= 1) {
+              const msgTree = document.getElementById("no-tree-msg");
+              if (msgTree) msgTree.remove();
+              const selectBlock = document.getElementById("select-block");
+              if (selectBlock) selectBlock.remove();
+            }
+            if (data.tree_count >= 10) {
+              const till10 = document.getElementById("till-10");
+              if (till10) {
+                till10.remove();
+              }
+              const already10 = document.getElementById("already-10");
+              if (already10) {
+                already10.classList.remove("hidden");
+              }
+            }
+            const treeList = document.getElementById("tree-list");
+            if (treeList) {
+              const newTree = document.createElement("li");
+              newTree.textContent = `\u{1F333} ${treeWith.tree_name}/ ${treeWith.fav_name || "\u307E\u3060\u6728\u304C\u3042\u308A\u307E\u305B\u3093"}`;
+              treeList.appendChild(newTree);
+            }
+            updateTreeCount(data.trees_count);
+            updateUserTreeCount(data.tree_count);
           } else {
             if (data.errors) {
               console.error("\u4FDD\u5B58\u30A8\u30E9\u30FC:", data.errors);
@@ -248,6 +265,18 @@
             }
           }
         }).catch((error) => console.error("\u9001\u4FE1\u30A8\u30E9\u30FC:", error));
+        function updateTreeCount(count) {
+          const treesCountElement = document.getElementById("trees-count");
+          if (treesCountElement) {
+            treesCountElement.textContent = count;
+          }
+        }
+        function updateUserTreeCount(count) {
+          const userTreeCountElement = document.getElementById("user-tree-count");
+          if (userTreeCountElement) {
+            userTreeCountElement.textContent = count;
+          }
+        }
       }
     });
     function animate() {
