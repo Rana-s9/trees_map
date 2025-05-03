@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         'light-blue': '#A3B9C9',
         'midnight-blue': '#191970',
+        'mid-blue': '#1e3a8a',
         'coral': '#ff7f50',
         'lemon': '#fffacd',
         'moss-green': '#9CB98D',
@@ -35,7 +36,8 @@ module.exports = {
         'pink': 'f08080',
         'light-pink': '#fa8072',
         'light-salmon': '#ffa07a',
-        'gray': '#2f4f4f'
+        'gray': '#2f4f4f',
+        'light-gray': '#6b7280'
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],

@@ -3,11 +3,11 @@
 
     <% if user_signed_in? %>
       <div class="mb-6">
-        <%= form_with model: @fav_place, url: fav_places_path(region: @region), method: :post, local: true, id: 'post-form', class: "max-w-md mx-auto p-6 bg-cream-500 rounded-2xl shadow-lg" do |f| %>
+        <%= form_with model: @fav_place, url: fav_places_path(region: @region), method: :post, local: true, id: 'post-form', class: "max-w-md mx-auto p-6 bg-mid-blue rounded-2xl shadow-lg" do |f| %>
 
           <!-- 場所名入力 -->
           <div class="mb-4">
-            <%= f.label :fav_name, "場所の名前", class: "block text-white text-sm font-bold mb-2" %>
+            <%= f.label :fav_name, "場所の名前(自動入力)", class: "block text-white text-sm font-bold mb-2" %>
             <%= f.text_field :fav_name, id: "place-name", class: "w-full px-4 py-2 bg-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" %>
           </div>
 
@@ -30,7 +30,7 @@
 
           <!-- 投稿ボタン -->
           <div class="text-center">
-            <%= f.submit "登録", class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-xl transition duration-200" %>
+            <%= f.submit "登録", class: "bg-lemon hover:bg-sage-green text-gray font-bold py-2 px-6 rounded-xl transition duration-200" %>
           </div>
 
         <% end %>
@@ -127,8 +127,9 @@
     <% end %>
   </div>
   <div class="w-full lg:w-1/4">
+    <%= render 'link' %>
     <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-pink-red text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
-    <div class="rounded-lg shadow-lg p-4">
+    <div class="rounded-lg shadow-lg p-4 bg-mid-blue">
         <h2 class="text-lg font-bold text-white mb-4">参考🌳登録済みの場所一覧🌳</h2>
         <ul class="space-y-3">
           <% @fav_places.each do |fav_place| %>
