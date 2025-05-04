@@ -19,8 +19,16 @@
             </p>
             <p><strong>植林場所</strong> <%= tree.fav_place&.fav_name || "植林場所が未設定です" %></p>
             <p><strong>住所</strong> <%= tree.fav_place&.address || "住所が未設定です" %></p>
-            <p><strong>植えたユーザー: <%= tree.user.user_name %></p></strong>
-            <p><strong>植えた日時:</strong> <%= l(tree.created_at, format: :long) %></p>
+            <p>
+              <strong>植えたユーザー:</strong>
+              <span class="<%= "text-pink-red font-bold" if tree.user == current_user %>">
+                <%= tree.user.user_name %>
+              </span>
+            </p>
+            <p><strong>植えた日時:</strong> <%= l(tree.created_at, format: :long) %></p><br>
+            <% if tree.user == current_user %>
+              <%= link_to '削除する', my_tree_path(tree), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？"}, class: "bg-red-500 hover:bg-light-salmon font-bold py-2 px-4 rounded shadow" %>
+            <% end %>
           </div>
         <% end %>
       </div>

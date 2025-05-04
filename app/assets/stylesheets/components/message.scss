@@ -8,3 +8,14 @@
     transform: translateX(-50%);
     font-size: 1.5rem;
   }
+
+  .login-message {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+  }
