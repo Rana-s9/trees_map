@@ -16,6 +16,9 @@
             <%= f.label :address, "住所（もしくは場所名）", class: "block text-white text-sm font-bold mb-2" %>
             <%= f.text_field :address, id: "address-input", class: "w-full px-4 py-2 bg-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" %>
           </div>
+          <div class="text-right">
+            <%= link_to 'リセット', new_fav_place_path, method: :get, class: "text-lemon" %>
+          </div>
 
           <!-- 緯度・経度の表示（非入力フォーム） -->
           <div class="mb-4 text-white">
@@ -32,7 +35,6 @@
           <div class="text-center">
             <%= f.submit "登録", class: "bg-lemon hover:bg-sage-green text-gray font-bold py-2 px-6 rounded-xl transition duration-200" %>
           </div>
-
         <% end %>
       </div>
 

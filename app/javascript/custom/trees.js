@@ -33,7 +33,7 @@ document.addEventListener("turbo:load", function() {
         north: {
             // スウェーデン（北）方向を見る
             position: new THREE.Vector3(11540.5585 / 3, 150, 1166.8548 / 3),
-            lookAt: new THREE.Vector3(11540.5585 / 3, 0, 6166.8548 / 3)
+            lookAt: new THREE.Vector3(11540.5585 / 3, 10, 6166.8548 / 3)
         },
         south: {
             // オーストラリアのパース（南）方向を見る
@@ -42,8 +42,8 @@ document.addEventListener("turbo:load", function() {
         },
         east: {
             // 日本（東）方向を見る
-            position: new THREE.Vector3(15471.9972 / 3, 150, 8294.7173 / 3),
-            lookAt: new THREE.Vector3(18471.9972 / 3, 0, 8294.7173 / 3)
+            position: new THREE.Vector3(19000 / 3, 150, 11500 / 3),
+            lookAt: new THREE.Vector3(18471.9972 / 3, 10, 8294.7173 / 3)
         },
         west: {
             // ポルトガル（西）方向を見る
@@ -51,8 +51,8 @@ document.addEventListener("turbo:load", function() {
             lookAt: new THREE.Vector3(9953.7215 / 3, 0, 8036.6137 / 3)
         },
         "southeast-asia": {
-            position: new THREE.Vector3(16343.6319 / 3, 150, 9639.8951 / 3),
-            lookAt: new THREE.Vector3(16343.6319 / 3, 0, 9588.8949 / 3)
+            position: new THREE.Vector3(16800 / 3, 100, 9639.8951 / 3),
+            lookAt: new THREE.Vector3(16343.6319 / 3, 10, 9588.8949 / 3)
         },
         "south-asia": {
             position: new THREE.Vector3(15321.8055 / 3, 150, 8826.0183 / 3),
@@ -97,6 +97,10 @@ document.addEventListener("turbo:load", function() {
         antarctic: {
             position: new THREE.Vector3(10481.6013 / 3, 150, 17310.2432 / 3),
             lookAt: new THREE.Vector3(10481.6013 / 3, 0, 17260.2432 / 3)
+        },
+        refresh: {
+            position: new THREE.Vector3(18000 / 3, 150, 11500 / 3),
+            lookAt: new THREE.Vector3(19000 / 3, 10, 8294.7173 / 3)
         }
     };    
 
@@ -138,7 +142,8 @@ document.addEventListener("turbo:load", function() {
         'middle-east',
         'north-africa',
         'arctic',
-        'antarctic'
+        'antarctic',
+        'refresh'
     ];      
     directions.forEach(direction => {
         const btn = document.getElementById(`btn-${direction}`);
