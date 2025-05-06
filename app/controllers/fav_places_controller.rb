@@ -35,7 +35,6 @@ class FavPlacesController < ApplicationController
         format.html { redirect_to new_fav_place_path, notice: '登録しました' }
       end
     else
-      flash[:alert] = "すでに登録されている場所です"
       render :new, status: :unprocessable_entity
     end
   end

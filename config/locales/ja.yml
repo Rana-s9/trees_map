@@ -1,7 +1,1 @@
-ja:
-  flash:
-    trees:
-      create:
-        success: "木を植えました！"
-        failure: "木の植林に失敗しました。"
-        limit_exceeded: "1人あたり10本までしか木を植えられません。"
+

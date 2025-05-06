@@ -1,5 +1,13 @@
 <div class="mb-6">
-    <%= form_with model: @fav_place, url: fav_places_path(region: @region), method: :post, local: true, id: 'post-form', class: "max-w-md mx-auto p-6 bg-mid-blue rounded-2xl shadow-lg" do |f| %>
+    <%= form_with model: @fav_place, method: :post, local: true, id: 'post-form', class: "max-w-md mx-auto p-6 bg-mid-blue rounded-2xl shadow-lg" do |f| %>
+        <% if @fav_place.errors.any? %>
+          <div class= "text-bold text-pink-red">
+              <% @fav_place.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>       
         <!-- 場所名入力 -->
         <div class="mb-4">
         <%= f.label :fav_name, "場所の名前(自動入力)", class: "block text-white text-sm font-bold mb-2" %>
