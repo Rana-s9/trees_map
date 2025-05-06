@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .centered-message {
   display: flex;
   justify-content: center;
@@ -17,5 +18,18 @@
   top: 10%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1.4rem;
+  font-size: 1.8rem;
+}
+
+#btn-refresh {
+  position: absolute;
+  top: 680px;
+  left: 20px;
+  z-index: 10; /* Three.jsのcanvasよりも前面に配置 */
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 60px;
 }

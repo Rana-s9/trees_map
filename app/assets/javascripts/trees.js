@@ -14,7 +14,7 @@
     controls.dampingFactor = 0.25;
     controls.enablePan = true;
     controls.enableZoom = true;
-    controls.maxPolarAngle = Math.PI / 2;
+    controls.maxPolarAngle = Math.PI / 2.2;
     controls.minPolarAngle = 0;
     controls.enableRotate = true;
     window.camera = camera;
@@ -22,71 +22,75 @@
     const cameraPositions = {
       north: {
         // スウェーデン（北）方向を見る
-        position: new THREE.Vector3(11540.5585 / 3, 150, 1166.8548 / 3),
-        lookAt: new THREE.Vector3(11540.5585 / 3, 0, 6166.8548 / 3)
+        position: new THREE.Vector3(11540.5585 / 3, 130, 5e3 / 3),
+        lookAt: new THREE.Vector3(11540.5585 / 3, 10, 6166.8548 / 3)
       },
       south: {
         // オーストラリアのパース（南）方向を見る
-        position: new THREE.Vector3(17235.1919 / 3, 150, 17451.7876 / 3),
-        lookAt: new THREE.Vector3(17235.1919 / 3, 0, 12451.7876 / 3)
+        position: new THREE.Vector3(17500 / 3, 130, 14e3 / 3),
+        lookAt: new THREE.Vector3(17235.1919 / 3, 10, 12451.7876 / 3)
       },
       east: {
         // 日本（東）方向を見る
-        position: new THREE.Vector3(15471.9972 / 3, 150, 8294.7173 / 3),
-        lookAt: new THREE.Vector3(18471.9972 / 3, 0, 8294.7173 / 3)
+        position: new THREE.Vector3(19e3 / 3, 150, 11500 / 3),
+        lookAt: new THREE.Vector3(18471.9972 / 3, 10, 8294.7173 / 3)
       },
       west: {
         // ポルトガル（西）方向を見る
-        position: new THREE.Vector3(14953.7215 / 3, 150, 8036.6137 / 3),
-        lookAt: new THREE.Vector3(9953.7215 / 3, 0, 8036.6137 / 3)
+        position: new THREE.Vector3(9400 / 3, 130, 9e3 / 3),
+        lookAt: new THREE.Vector3(9953.7215 / 3, 10, 8036.6137 / 3)
       },
       "southeast-asia": {
-        position: new THREE.Vector3(16343.6319 / 3, 150, 9639.8951 / 3),
-        lookAt: new THREE.Vector3(16343.6319 / 3, 0, 9588.8949 / 3)
+        position: new THREE.Vector3(16800 / 3, 100, 9639.8951 / 3),
+        lookAt: new THREE.Vector3(16343.6319 / 3, 10, 9588.8949 / 3)
       },
       "south-asia": {
-        position: new THREE.Vector3(15321.8055 / 3, 150, 8826.0183 / 3),
-        lookAt: new THREE.Vector3(15321.8055 / 3, 0, 8777.0181 / 3)
+        position: new THREE.Vector3(14800 / 3, 120, 9500 / 3),
+        lookAt: new THREE.Vector3(15321.8055 / 3, 10, 8777.0181 / 3)
       },
       africa: {
-        position: new THREE.Vector3(12532.2303 / 3, 150, 10572.1101 / 3),
-        lookAt: new THREE.Vector3(12532.2303 / 3, 0, 10522.1102 / 3)
+        position: new THREE.Vector3(13e3 / 3, 130, 11e3 / 3),
+        lookAt: new THREE.Vector3(12532.2303 / 3, 10, 10522.1102 / 3)
       },
       "north-africa": {
-        position: new THREE.Vector3(12299.5215 / 3, 150, 8653.7907 / 3),
-        lookAt: new THREE.Vector3(12299.5215 / 3, 0, 8604.791 / 3)
+        position: new THREE.Vector3(12800 / 3, 110, 8653.7907 / 3),
+        lookAt: new THREE.Vector3(12299.5215 / 3, 10, 8604.791 / 3)
       },
       "north-america": {
-        position: new THREE.Vector3(4000.3173 / 3, 150, 7607.859 / 3),
-        lookAt: new THREE.Vector3(4000.3173 / 3, 0, 7549.8591 / 3)
+        position: new THREE.Vector3(3500 / 3, 130, 7e3 / 3),
+        lookAt: new THREE.Vector3(4000.3173 / 3, 10, 7549.8591 / 3)
       },
       "south-america": {
-        position: new THREE.Vector3(6861.4224 / 3, 150, 10687.7517 / 3),
+        position: new THREE.Vector3(7500 / 3, 120, 10687.7517 / 3),
         lookAt: new THREE.Vector3(6861.4224 / 3, 0, 10638.7518 / 3)
       },
       "central-america": {
-        position: new THREE.Vector3(5832.0831 / 3, 150, 9952.0851 / 3),
+        position: new THREE.Vector3(6400 / 3, 120, 9952.0851 / 3),
         lookAt: new THREE.Vector3(5832.0831 / 3, 0, 9903.0852 / 3)
       },
       "eastern-europe": {
-        position: new THREE.Vector3(11918.9764 / 3, 150, 7268.8875 / 3),
-        lookAt: new THREE.Vector3(11918.9764 / 3, 0, 7219.8876 / 3)
+        position: new THREE.Vector3(11918.9764 / 3, 130, 6300 / 3),
+        lookAt: new THREE.Vector3(11918.9764 / 3, 10, 7219.8876 / 3)
       },
       "central-asia": {
-        position: new THREE.Vector3(14818.5633 / 3, 150, 7442.7084 / 3),
-        lookAt: new THREE.Vector3(14818.5633 / 3, 0, 7393.7085 / 3)
+        position: new THREE.Vector3(14300 / 3, 120, 7200 / 3),
+        lookAt: new THREE.Vector3(14818.5633 / 3, 10, 7393.7085 / 3)
       },
       "middle-east": {
-        position: new THREE.Vector3(13371.2388 / 3, 150, 8832.2287 / 3),
-        lookAt: new THREE.Vector3(13371.2388 / 3, 0, 8791.2288 / 3)
+        position: new THREE.Vector3(13900 / 3, 120, 8832.2287 / 3),
+        lookAt: new THREE.Vector3(13371.2388 / 3, 10, 8791.2288 / 3)
       },
       arctic: {
-        position: new THREE.Vector3(11707.653 / 3, 150, 3001.3854 / 3),
-        lookAt: new THREE.Vector3(11707.653 / 3, 0, 2951.3853 / 3)
+        position: new THREE.Vector3(11700 / 3, 130, 1800 / 3),
+        lookAt: new THREE.Vector3(11707.653 / 3, 10, 2951.3853 / 3)
       },
       antarctic: {
-        position: new THREE.Vector3(10481.6013 / 3, 150, 17310.2432 / 3),
+        position: new THREE.Vector3(10730 / 3, 150, 18760 / 3),
         lookAt: new THREE.Vector3(10481.6013 / 3, 0, 17260.2432 / 3)
+      },
+      refresh: {
+        position: new THREE.Vector3(19e3 / 3, 150, 11500 / 3),
+        lookAt: new THREE.Vector3(18471.9972 / 3, 10, 8294.7173 / 3)
       }
     };
     camera.position.copy(cameraPositions.east.position);
@@ -120,7 +124,8 @@
       "middle-east",
       "north-africa",
       "arctic",
-      "antarctic"
+      "antarctic",
+      "refresh"
     ];
     directions.forEach((direction) => {
       const btn = document.getElementById(`btn-${direction}`);
