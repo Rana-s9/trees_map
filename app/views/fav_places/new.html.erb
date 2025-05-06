@@ -1,138 +1,17 @@
 <div class="flex flex-col lg:flex-row gap-6">
   <div class="w-full lg:w-3/4">
-
     <% if user_signed_in? %>
-      <div class="mb-6">
-        <%= form_with model: @fav_place, url: fav_places_path(region: @region), method: :post, local: true, id: 'post-form', class: "max-w-md mx-auto p-6 bg-mid-blue rounded-2xl shadow-lg" do |f| %>
-
-          <!-- 場所名入力 -->
-          <div class="mb-4">
-            <%= f.label :fav_name, "場所の名前(自動入力)", class: "block text-white text-sm font-bold mb-2" %>
-            <%= f.text_field :fav_name, id: "place-name", class: "w-full px-4 py-2 bg-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" %>
-          </div>
-
-          <!-- 住所入力（Place検索用） -->
-          <div class="mb-4">
-            <%= f.label :address, "住所（もしくは場所名）", class: "block text-white text-sm font-bold mb-2" %>
-            <%= f.text_field :address, id: "address-input", class: "w-full px-4 py-2 bg-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-          </div>
-          <div class="text-right">
-            <%= link_to 'リセット', new_fav_place_path, method: :get, class: "text-lemon" %>
-          </div>
-
-          <!-- 緯度・経度の表示（非入力フォーム） -->
-          <div class="mb-4 text-white">
-            緯度: <span id="lat-value">-</span><br>
-            経度: <span id="lng-value">-</span>
-          </div>
-
-          <!-- 地図表示 -->
-          <div class="mb-6">
-            <div id="map" style="height: 300px; width: 100%;" class="rounded-lg shadow-md"></div>
-          </div>
-
-          <!-- 投稿ボタン -->
-          <div class="text-center">
-            <%= f.submit "登録", class: "bg-lemon hover:bg-sage-green text-gray font-bold py-2 px-6 rounded-xl transition duration-200" %>
-          </div>
-        <% end %>
-      </div>
-
-      <!-- Google Maps処理 -->
-      <script>
-        let map;
-        let marker;
-
-        function initAutocomplete() {
-          const addressInput = document.getElementById('address-input');
-          const placeNameInput = document.getElementById('place-name');
-          const autocomplete = new google.maps.places.Autocomplete(addressInput);
-
-          map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: 35.681236, lng: 139.767125 }, // 東京駅初期値
-            zoom: 13,
-          });
-
-          autocomplete.addListener('place_changed', function () {
-            const place = autocomplete.getPlace();
-
-            if (!place.geometry) {
-              alert("場所が見つかりませんでした。");
-              return;
-            }
-
-            const location = place.geometry.location;
-            const lat = location.lat();
-            const lng = location.lng();
-
-            // 地図の中心を移動
-            map.setCenter(location);
-
-            // マーカー再設置
-            if (marker) marker.setMap(null);
-            marker = new google.maps.Marker({ map: map, position: location });
-
-            // 緯度経度の表示
-            document.getElementById("lat-value").textContent = lat.toFixed(6);
-            document.getElementById("lng-value").textContent = lng.toFixed(6);
-
-            // 緯度経度を hidden フィールドに保存（Railsに送信）
-            setHiddenField("fav_place[latitude]", "lat", lat);
-            setHiddenField("fav_place[longitude]", "lng", lng);
-
-            // 選択された場所の名前を「場所名」フィールドに自動入力
-            if (place.name && placeNameInput) {
-              placeNameInput.value = place.name;
-            }
-            
-            getXYFromLatLng(location);
-          });
-
-          function setHiddenField(name, id, value) {
-            let input = document.getElementById(id);
-            if (!input) {
-              input = document.createElement("input");
-              input.type = "hidden";
-              input.name = name;
-              input.id = id;
-              addressInput.form.appendChild(input);
-            }
-            input.value = value;
-          }
-
-          function getXYFromLatLng(latLng) {
-          const scale = Math.pow(2, map.getZoom());
-          const projection = map.getProjection();
-
-          const worldCoordinate = projection.fromLatLngToPoint(latLng);
-          const pixelCoordinate = {
-            x: worldCoordinate.x * scale,
-            y: worldCoordinate.y * scale
-          };
-
-          // hiddenフィールドがあれば代入、なければ生成
-          setHiddenField("fav_place[fav_x]", "fav_x", pixelCoordinate.x);
-          setHiddenField("fav_place[fav_y]", "fav_y", 0); // 中央に配置
-          setHiddenField("fav_place[fav_z]", "fav_z", pixelCoordinate.y);
-          }
-        }
-      </script>
-
-      <!-- Google Maps 読み込み -->
-      <script
-        async
-        defer
-        src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places&callback=initAutocomplete">
-      </script>
+      <%= render 'form' %>
+      <%= render 'place' %>
     <% else %>
-      <h1 class= "text-3xl text-white"> 場所を登録するには、ログインが必要です🌳</h1>
+      <h1 class= "text-3xl text-white"> 場所を登録するには、ログインが必要です<i class="fa-solid fa-tree text-moss-green"></i></h1>
     <% end %>
   </div>
   <div class="w-full lg:w-1/4">
     <%= render 'link' %>
     <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-pink-red text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
     <div class="rounded-lg shadow-lg p-4 bg-mid-blue">
-        <h2 class="text-lg font-bold text-white mb-4">参考🌳登録済みの場所一覧🌳</h2>
+        <h2 class="text-lg font-bold text-white mb-4">参考<i class="fa-solid fa-tree text-moss-green"></i>登録済みの場所一覧<i class="fa-solid fa-tree text-moss-green"></i></h2>
         <ul class="space-y-3">
           <% @fav_places.each do |fav_place| %>
             <li class="border-b pb-2">

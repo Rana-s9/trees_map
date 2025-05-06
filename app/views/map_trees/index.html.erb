@@ -1,5 +1,5 @@
 <header class ="relative">
-  <h1 class="text-white text-2xl">場所を追加➡植林しよう！ズームしたり色々な角度から眺めてみてね。<br>現在のすべての🌳<span id="trees-count"><%= @trees_count %></span>本</h1><br>
+  <h1 class="text-white text-2xl">場所を追加➡植林しよう！ズームしたり色々な角度から眺めてみてね。<br>現在のすべての<i class="fa-solid fa-tree text-moss-green"></i><span id="trees-count"><%= @trees_count %></span>本</h1><br>
   <%= link_to "TOP",root_path, data: { turbo: false },class: "w-200 bg-lemon hover:bg-dry-khaki text-gray font-bold py-2 px-4 rounded-md shadow-md transition" %>
   <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-light-pink hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
   <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
@@ -25,18 +25,18 @@
   <br>
   <% if user_signed_in? %>
       <% if current_user.trees.count < 10 %>
-        <div id="till-10" class="btn btn-gray text-light-salmon text-xl" disabled>10本まで植林できます🌳</div>
+        <div id="till-10" class="btn btn-gray text-light-salmon text-xl" disabled>10本まで植林できます<i class="fa-solid fa-tree text-moss-green"></i></div>
         <div id="already-10" class="btn btn-gray text-pink-red text-xl hidden" disabled>すでに10本植林しました!</div> <!--非同期用-->
         <% if current_user.places_no_trees.empty? %>
           <div class="centered-message">
-            <h1 class="text-light-pink">新しい場所を追加してください📍</h1>
+            <h1 class="text-light-pink">新しい場所を追加してください<i class="fa-solid fa-map-pin text-pink-red"></i></h1>
           </div>
         <% end %>
       <% else %>
         <div class="btn btn-gray text-pink-red text-xl" disabled>すでに10本植林しました!</div>
       <% end %>
       <% if current_user.places_no_trees.exists? %>
-        <p id="no-tree-msg" class="text-white">まだ木が植えられていない場所があります🌳</p>
+        <p id="no-tree-msg" class="text-white">まだ木が植えられていない場所があります<i class="fa-solid fa-tree text-moss-green"></i></p>
         <!-- 選択肢 -->
         <div id="select-block" class="mb-4">
           <label for="fav_place_select" class="text-white">場所を選んでください：</label>
@@ -51,18 +51,20 @@
           <button id="addFavTreeButton" class="bg-moss-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">この場所に木を植える</button>
         </div>
       <% end %>
-      <h1 class="text-white text-xl"><%= current_user.user_name %>さんの🌳<span id="user-tree-count"><%= @tree_count %></span>本：</h1>
+      <h1 class="text-white text-xl"><%= current_user.user_name %>さんの<i class="fa-solid fa-tree text-moss-green"></i><span id="user-tree-count"><%= @tree_count %></span>本：</h1>
       <ul id="tree-list" class="text-sage-green flex flex-wrap gap-4">
         <% @trees_id_name.each do |name| %>
-          <li class="whitespace-nowrap">🌳 <%= name[:tree] %>/<%= name[:fav] || 'まだ木がありません' %></li>
+          <li class="whitespace-nowrap"><i class="fa-solid fa-tree text-moss-green"></i> <%= name[:tree] %>/<%= name[:fav] || 'まだ木がありません' %></li>
         <% end %>
       </ul>
   <% else %>
     <div class="login-message">
-      <h1 class="text-lemon">ログインして植林しよう🌳</h1>
+      <h1 class="text-lemon">ログインして植林しよう!<i class="fa-solid fa-tree text-moss-green"></i></h1>
     </div>
   <% end %>
 </header>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap"></script>
 
 <!-- JSON データ -->
 <div id="treeData" style="display: none;">

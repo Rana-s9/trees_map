@@ -1,14 +1,14 @@
-<h1 class="text-white text-4xl">登録場所一覧</h1>
-<h1 class="text-white text-xl">地図のピンにカーソルを合わせると、場所名が出ます📍</h1><br>
+<h1 class="text-white text-4xl text-center mb-5">
+  登録場所一覧 <i class="fa-solid fa-map-pin text-pink-red"></i>
+</h1>
 <%= render 'link' %>
 <header>
   <%= link_to "TOP",root_path, data: { turbo: false },class: "w-200 bg-lemon hover:bg-dry-khaki text-gray font-bold py-2 px-4 rounded-md shadow-md transition" %>
   <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-light-pink hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
-  <%= render 'place' %>
 </header>
 <body style="background-color: green;">
   <div class="container mx-auto px-4">
-    <h1 class="text-3xl font-bold mb-8 text-white text-center">🌳　🌳　🌳</h1>
+    <h1 class="text-3xl font-bold mb-8 text-white text-center"><i class="fa-solid fa-tree text-moss-green"></i><i class="fa-solid fa-tree text-moss-green"></i><i class="fa-solid fa-tree text-moss-green"></i></h1>
 
     <% if @fav_places.empty? %>
       <p class="text-white text-center text-lg">登録場所はまだありません</p>
@@ -16,21 +16,18 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <% @fav_places.each do |fav_place| %>
           <div class="bg-white text-green-800 rounded-lg shadow-md p-6">
-            <p><strong>場所ID:</strong> <%= fav_place.id %></p>
+            <p>場所ID: <%= fav_place.id %></p>
+            <p>場所名:<%= link_to fav_place.fav_name, fav_place_path(fav_place), class: "text-green-600 underline hover:text-green-800" %></p>
             <p>
-              <strong>場所名:</strong>
-              <%= link_to fav_place.fav_name, fav_place_path(fav_place), class: "text-green-600 underline hover:text-green-800" %>
-            </p>
-            <p>
-              <strong>ユーザー:</strong>
+              ユーザー:
               <span class="<%= "text-pink-red font-bold" if fav_place.user == current_user %>">
                 <%= fav_place.user.user_name %>
               </span>
             </p>
-            <p><strong>登録日時:</strong> <%= l(fav_place.created_at, format: :long) %></p>
-            <p><strong>住所</strong> <%= fav_place.address %></p><br>
+            <p>登録日時: <%= l(fav_place.created_at, format: :long) %></p>
+            <p>住所 <%= fav_place.address %></p><br>
             <% if fav_place.user == current_user %>
-              <%= link_to '削除', fav_place_path(fav_place), data: { turbo_method: :delete, turbo_confirm: "この場所に既に植林している場合、木も削除されます🌳本当に削除しますか？"}, class: "bg-red-500 hover:bg-light-salmon font-bold py-2 px-4 rounded shadow" %>
+              <%= link_to '削除', fav_place_path(fav_place), data: { turbo_method: :delete, turbo_confirm: "この場所に既に植林している場合、木も削除されます。本当に削除しますか？"}, class: "bg-red-500 hover:bg-light-salmon font-bold py-2 px-4 rounded shadow" %>
             <% end %>
           </div>
         <% end %>

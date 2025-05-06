@@ -1,0 +1,36 @@
+<div class="mb-6">
+    <%= form_with model: @fav_place, url: fav_places_path(region: @region), method: :post, local: true, id: 'post-form', class: "max-w-md mx-auto p-6 bg-mid-blue rounded-2xl shadow-lg" do |f| %>
+        <!-- 場所名入力 -->
+        <div class="mb-4">
+        <%= f.label :fav_name, "場所の名前(自動入力)", class: "block text-white text-sm font-bold mb-2" %>
+        <%= f.text_field :fav_name, id: "place-name", class: "w-full px-4 py-2 bg-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" %>
+        </div>
+
+        <!-- 住所入力（Place検索用） -->
+        <div class="mb-4">
+          <div class="flex justify-between items-center">
+            <%= f.label :address, "住所（もしくは場所名）", class: "block text-white text-sm font-bold mb-2" %>
+            <button id="btn-search" class= "bg-lemon hover:bg-sage-green text-gray font-bold py-2 px-6 rounded-xl transition duration-200", data: { turbo: false } %>検索</button>
+          </div>
+        <%= f.text_field :address, id: "address-input", class: "w-full px-4 py-2 bg-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" %>
+        </div>
+        <div class="text-right">
+        <%= link_to 'リセット', new_fav_place_path, method: :get, class: "text-lemon" %>
+        </div>
+
+        <!-- 緯度・経度の表示（非入力フォーム） -->
+        <div class="mb-4 text-white">
+        緯度: <span id="lat-value">-</span><br>
+        経度: <span id="lng-value">-</span>
+        </div>
+
+        <div class="mb-6">
+            <div id="map" style="height: 300px; width: 100%;" class="rounded-lg shadow-md"></div>
+        </div>
+
+        <!-- 投稿ボタン -->
+        <div class="text-center">
+        <%= f.submit "登録", class: "bg-lemon hover:bg-sage-green text-gray font-bold py-2 px-6 rounded-xl transition duration-200", data: { turbo: false } %>
+        </div>
+    <% end %>
+</div>

@@ -4,7 +4,7 @@
 </header>
 <body style="background-color: green;">
   <div class="container mx-auto px-4">
-    <h1 class="text-3xl font-bold mb-8 text-white text-center">🌳 <%= current_user.user_name %> の木 🌳</h1>
+    <h1 class="text-3xl font-bold mb-8 text-white text-center"><i class="fa-solid fa-tree text-moss-green"></i> <%= current_user.user_name %> の木 <i class="fa-solid fa-tree text-moss-green"></i></h1>
     <h1 class="text-xl font-bold mb-8 text-white text-center">~木の名前をクリックして、自分好みに編集してね~</h1>
 
     <% if @trees.empty? %>

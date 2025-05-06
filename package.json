@@ -12,6 +12,7 @@
     "build:map": "sass ./app/assets/stylesheets/components:./app/assets/builds --no-source-map --load-path=node_modules"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.13"
   }
