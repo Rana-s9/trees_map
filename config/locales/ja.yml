@@ -1,1 +1,16 @@
-
+ja:
+  activerecord:
+    attributes:
+      fav_place:
+        address: 住所
+        fav_name: 場所名
+    errors:
+      models:
+        fav_place:
+          attributes:
+            address:
+              blank: "を入力してください"
+              taken: "はすでに登録されています"
+            fav_name:
+              blank: "を入力してください"
+              taken: "はすでに使われています"

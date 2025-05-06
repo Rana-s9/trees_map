@@ -10,26 +10,20 @@
         <% end %>       
         <!-- 場所名入力 -->
         <div class="mb-4">
-        <%= f.label :fav_name, "場所の名前(自動入力)", class: "block text-white text-sm font-bold mb-2" %>
+        <%= f.label :fav_name, "場所の名前 *場所名は自動入力されますが、適宜変更してください", class: "block text-white text-sm font-bold mb-2" %>
         <%= f.text_field :fav_name, id: "place-name", class: "w-full px-4 py-2 bg-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" %>
         </div>
 
-        <!-- 住所入力（Place検索用） -->
+        <!-- 住所入力 -->
         <div class="mb-4">
           <div class="flex justify-between items-center">
-            <%= f.label :address, "住所（もしくは場所名）", class: "block text-white text-sm font-bold mb-2" %>
+            <%= f.label :address, "住所 *(例)東京都 スカイツリー", class: "block text-white text-sm font-bold mb-2" %>
             <button id="btn-search" class= "bg-lemon hover:bg-sage-green text-gray font-bold py-2 px-6 rounded-xl transition duration-200", data: { turbo: false } %>検索</button>
           </div>
         <%= f.text_field :address, id: "address-input", class: "w-full px-4 py-2 bg-gray text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" %>
         </div>
         <div class="text-right">
         <%= link_to 'リセット', new_fav_place_path, method: :get, class: "text-lemon" %>
-        </div>
-
-        <!-- 緯度・経度の表示（非入力フォーム） -->
-        <div class="mb-4 text-white">
-        緯度: <span id="lat-value">-</span><br>
-        経度: <span id="lng-value">-</span>
         </div>
 
         <div class="mb-6">
@@ -40,5 +34,9 @@
         <div class="text-center">
         <%= f.submit "登録", class: "bg-lemon hover:bg-sage-green text-gray font-bold py-2 px-6 rounded-xl transition duration-200", data: { turbo: false } %>
         </div>
+
+        <%= f.hidden_field :latitude, id: "latitude" %>
+        <%= f.hidden_field :longitude, id: "longitude" %>
+        <%= f.hidden_field :address, id: "selected-address" %>
     <% end %>
 </div>

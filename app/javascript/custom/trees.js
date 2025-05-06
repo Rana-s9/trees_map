@@ -22,7 +22,7 @@ document.addEventListener("turbo:load", function() {
     controls.dampingFactor = 0.25;
     controls.enablePan = true;
     controls.enableZoom = true;
-    controls.maxPolarAngle = Math.PI / 2;
+    controls.maxPolarAngle = Math.PI / 2.2;
     controls.minPolarAngle = 0;
     controls.enableRotate = true;
 

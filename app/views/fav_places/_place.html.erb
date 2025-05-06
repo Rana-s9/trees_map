@@ -2,78 +2,95 @@
   let map;
   let marker;
 
-  function initAutocomplete() {
-    const addressInput = document.getElementById('address-input');
-    const placeNameInput = document.getElementById('place-name');
-    const autocomplete = new google.maps.places.Autocomplete(addressInput);
+  function initMap() {
+    const addressInput = document.getElementById("address-input");
+    const placeNameInput = document.getElementById("place-name");
+    const searchBtn = document.getElementById("btn-search");
 
     map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 35.681236, lng: 139.767125 }, // 東京駅初期値
-      zoom: 13,
-    });
+            center: { lat: 35.681236, lng: 139.767125 }, // 東京駅初期値
+            zoom: 13,
+          });
 
-    autocomplete.addListener('place_changed', function () {
-      const place = autocomplete.getPlace();
+    searchBtn.addEventListener("click", async function (e) {
+      e.preventDefault();
+      const query = addressInput.value;
+      if (!query) return;
 
-      if (!place.geometry) {
-        alert("場所が見つかりませんでした。");
+      // Geocoding API リクエスト
+      const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(query)}&key=<%= ENV['GOOGLE_MAPS_API'] %>`;
+      const response = await fetch(geocodeUrl);
+      const data = await response.json();
+
+      if (!data.results || data.results.length === 0) {
+        alert("住所が見つかりませんでした");
         return;
       }
 
-      const location = place.geometry.location;
-      const lat = location.lat();
-      const lng = location.lng();
+      const place = data.results[0];
+      const lat = place.geometry.location.lat;
+      const lng = place.geometry.location.lng;
+      const location = new google.maps.LatLng(lat, lng);
 
-      // 地図の中心を移動
+      document.getElementById("latitude").value = lat;
+      document.getElementById("longitude").value = lng;
+      document.getElementById("selected-address").value = place.formatted_address;
+      addressInput.value = place.formatted_address;
+
+      // 中心移動（マップ初期化は行わない）
       map.setCenter(location);
 
-      // マーカー再設置
+      // マーカー更新
       if (marker) marker.setMap(null);
       marker = new google.maps.Marker({ map: map, position: location });
 
-      // 緯度経度の表示
-      document.getElementById("lat-value").textContent = lat.toFixed(6);
-      document.getElementById("lng-value").textContent = lng.toFixed(6);
-
-      // 緯度経度を hidden フィールドに保存（Railsに送信）
+      // Hidden 保存
       setHiddenField("fav_place[latitude]", "lat", lat);
       setHiddenField("fav_place[longitude]", "lng", lng);
 
-      // 選択された場所の名前を「場所名」フィールドに自動入力
-      if (place.name && placeNameInput) {
-        placeNameInput.value = place.name;
+      // ピクセル座標の取得
+      google.maps.event.addListenerOnce(map, 'idle', () => {
+        getXYFromLatLng(location);
+      });
+
+      // 場所名抽出
+      const components = place.address_components;
+      const placeComponent = components.find(c =>
+        c.types.includes("premise") || c.types.includes("point_of_interest") || c.types.includes("establishment")
+      );
+
+      if (placeComponent && placeNameInput) {
+        placeNameInput.value = placeComponent.long_name;
       }
-      
-      getXYFromLatLng(location);
     });
+  }
 
-    function setHiddenField(name, id, value) {
-      let input = document.getElementById(id);
-      if (!input) {
-        input = document.createElement("input");
-        input.type = "hidden";
-        input.name = name;
-        input.id = id;
-        addressInput.form.appendChild(input);
-      }
-      input.value = value;
+  function setHiddenField(name, id, value) {
+    let input = document.getElementById(id);
+    if (!input) {
+      input = document.createElement("input");
+      input.type = "hidden";
+      input.name = name;
+      input.id = id;
+      document.getElementById("address-input").form.appendChild(input);
     }
+    input.value = value;
+  }
 
-    function getXYFromLatLng(latLng) {
+  function getXYFromLatLng(latLng) {
     const scale = Math.pow(2, map.getZoom());
     const projection = map.getProjection();
+    if (!projection) return;
 
     const worldCoordinate = projection.fromLatLngToPoint(latLng);
     const pixelCoordinate = {
       x: worldCoordinate.x * scale,
-      y: worldCoordinate.y * scale
+      y: worldCoordinate.y * scale,
     };
 
-    // hiddenフィールドがあれば代入、なければ生成
     setHiddenField("fav_place[fav_x]", "fav_x", pixelCoordinate.x);
-    setHiddenField("fav_place[fav_y]", "fav_y", 0); // 中央に配置
+    setHiddenField("fav_place[fav_y]", "fav_y", 0); // 任意
     setHiddenField("fav_place[fav_z]", "fav_z", pixelCoordinate.y);
-    }
   }
 </script>
 
@@ -81,5 +98,5 @@
 <script
   async
   defer
-  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places&callback=initAutocomplete">
+  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap">
 </script>
