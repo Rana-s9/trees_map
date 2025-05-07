@@ -1,5 +1,23 @@
 (() => {
   // app/javascript/custom/camera.js
+  var mapInitialized = false;
+  document.getElementById("map-btn").addEventListener("click", () => {
+    const mapContainer = document.getElementById("map-container");
+    if (mapContainer.style.display === "none" || !mapContainer.style.display) {
+      mapContainer.style.display = "block";
+      if (!mapInitialized) {
+        initMap();
+        mapInitialized = true;
+      }
+      document.getElementById("map-btn").innerText = "\u30AB\u30E1\u30E9\u9023\u52D5\u30DE\u30C3\u30D7\u3092\u96A0\u3059";
+    } else {
+      mapContainer.style.display = "none";
+      document.getElementById("map-btn").innerText = "\u30AB\u30E1\u30E9\u9023\u52D5\u30DE\u30C3\u30D7\u3092\u8868\u793A";
+    }
+  });
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("map-container").style.display = "none";
+  });
   var cameraFocusMap = {
     "btn-north": { lat: 60.1282, lng: 18.6435 },
     "btn-south": { lat: -25.2744, lng: 133.7751 },
