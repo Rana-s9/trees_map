@@ -4,72 +4,74 @@
   <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-light-pink hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
   <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
 </header>
-<div id="map-container">
-  <div id="map"></div>
-</div>
+<body>
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
 
-<%= stylesheet_link_tag 'map' %>
+  <%= stylesheet_link_tag 'map' %>
 
-<% json_data = @trees.map { |tree|
-  {
-    latitude: tree[:latitude],
-    longitude: tree[:longitude],
-    fav_name: tree[:fav_name]
-  }
-}.select { |p| p[:latitude] && p[:longitude] }.to_json %>
+  <% json_data = @trees.map { |tree|
+    {
+      latitude: tree[:latitude],
+      longitude: tree[:longitude],
+      fav_name: tree[:fav_name]
+    }
+  }.select { |p| p[:latitude] && p[:longitude] }.to_json %>
 
-<div id="fav-places-data" data-places="<%= json_data %>"></div>
+  <div id="fav-places-data" data-places="<%= json_data %>"></div>
 
-<%= render 'tree' %>
+  <%= render 'tree' %>
 
-  <br>
-  <% if user_signed_in? %>
-      <% if current_user.trees.count < 10 %>
-        <div id="till-10" class="btn btn-gray text-light-salmon text-xl" disabled>10本まで植林できます<i class="fa-solid fa-tree text-moss-green"></i></div>
-        <div id="already-10" class="btn btn-gray text-pink-red text-xl hidden" disabled>すでに10本植林しました!</div> <!--非同期用-->
-        <% if current_user.places_no_trees.empty? %>
-          <div class="centered-message">
-            <h1 class="text-light-pink">新しい場所を追加してください<i class="fa-solid fa-map-pin text-pink-red"></i></h1>
+    <br>
+    <% if user_signed_in? %>
+        <% if current_user.trees.count < 10 %>
+          <div id="till-10" class="btn btn-gray text-light-salmon text-xl" disabled>10本まで植林できます<i class="fa-solid fa-tree text-moss-green"></i></div>
+          <div id="already-10" class="btn btn-gray text-pink-red text-xl hidden" disabled>すでに10本植林しました!</div> <!--非同期用-->
+          <% if current_user.places_no_trees.empty? %>
+            <div class="centered-message">
+              <h1 class="text-light-pink">新しい場所を追加してください<i class="fa-solid fa-map-pin text-pink-red"></i></h1>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="btn btn-gray text-pink-red text-xl" disabled>すでに10本植林しました!</div>
+        <% end %>
+        <% if current_user.places_no_trees.exists? %>
+          <p id="no-tree-msg" class="text-white">まだ木が植えられていない場所があります<i class="fa-solid fa-tree text-moss-green"></i></p>
+          <!-- 選択肢 -->
+          <div id="select-block" class="mb-4">
+            <label for="fav_place_select" class="text-white">場所を選んでください：</label>
+            <select id="fav_place_select" class="w-40 px-4 py-2 rounded-md bg-gray text-white">
+              <option disabled selected>-- 場所を選ぶ --</option>
+              <% current_user.places_no_trees.each do |fav_place| %>
+                <option value="<%= fav_place.id %>" data-x="<%= fav_place.fav_x %>" data-z="<%= fav_place.fav_z %>">
+                  <%= fav_place.fav_name %>
+                </option>
+              <% end %>
+            </select>
+            <button id="addFavTreeButton" class="bg-moss-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">この場所に木を植える</button>
           </div>
         <% end %>
-      <% else %>
-        <div class="btn btn-gray text-pink-red text-xl" disabled>すでに10本植林しました!</div>
-      <% end %>
-      <% if current_user.places_no_trees.exists? %>
-        <p id="no-tree-msg" class="text-white">まだ木が植えられていない場所があります<i class="fa-solid fa-tree text-moss-green"></i></p>
-        <!-- 選択肢 -->
-        <div id="select-block" class="mb-4">
-          <label for="fav_place_select" class="text-white">場所を選んでください：</label>
-          <select id="fav_place_select" class="w-40 px-4 py-2 rounded-md bg-gray text-white">
-            <option disabled selected>-- 場所を選ぶ --</option>
-            <% current_user.places_no_trees.each do |fav_place| %>
-              <option value="<%= fav_place.id %>" data-x="<%= fav_place.fav_x %>" data-z="<%= fav_place.fav_z %>">
-                <%= fav_place.fav_name %>
-              </option>
-            <% end %>
-          </select>
-          <button id="addFavTreeButton" class="bg-moss-green hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">この場所に木を植える</button>
-        </div>
-      <% end %>
-      <h1 class="text-white text-xl"><%= current_user.user_name %>さんの<i class="fa-solid fa-tree text-moss-green"></i><span id="user-tree-count"><%= @tree_count %></span>本：</h1>
-      <ul id="tree-list" class="text-sage-green flex flex-wrap gap-4">
-        <% @trees_id_name.each do |name| %>
-          <li class="whitespace-nowrap"><i class="fa-solid fa-tree text-moss-green"></i> <%= name[:tree] %>/<%= name[:fav] || 'まだ木がありません' %></li>
-        <% end %>
-      </ul>
-  <% else %>
-    <div class="login-message">
-      <h1 class="text-lemon">ログインして植林しよう!<i class="fa-solid fa-tree text-moss-green"></i></h1>
+        <h1 class="text-white text-xl"><%= current_user.user_name %>さんの<i class="fa-solid fa-tree text-moss-green"></i><span id="user-tree-count"><%= @tree_count %></span>本：</h1>
+        <ul id="tree-list" class="text-sage-green flex flex-wrap gap-4">
+          <% @trees_id_name.each do |name| %>
+            <li class="whitespace-nowrap"><i class="fa-solid fa-tree text-moss-green"></i> <%= name[:tree] %>/<%= name[:fav] || 'まだ木がありません' %></li>
+          <% end %>
+        </ul>
+    <% else %>
+      <div class="login-message">
+        <h1 class="text-lemon">ログインして植林しよう!<i class="fa-solid fa-tree text-moss-green"></i></h1>
+      </div>
+    <% end %>
+
+    <!-- JSON データ -->
+    <div id="treeData" style="display: none;">
+      <%= raw @trees.to_json %>
     </div>
-  <% end %>
-</header>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap"></script>
+    <%= javascript_include_tag "camera" %>
+    <%= javascript_include_tag "trees" %>
 
-<!-- JSON データ -->
-<div id="treeData" style="display: none;">
-  <%= raw @trees.to_json %>
-</div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap&libraries=marker&v=weekly&loading=async" async defer></script>
+</body>
 
-<%= javascript_include_tag "camera" %>
-<%= javascript_include_tag "trees" %>

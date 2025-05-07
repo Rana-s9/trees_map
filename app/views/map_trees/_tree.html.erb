@@ -14,11 +14,23 @@
       return;
   }
 
-  map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: places[0].latitude, lng: places[0].longitude },
-      zoom: 12,
-      mapTypeId: "hybrid"
+    // 地図を初期化（Mapは先に作る必要がある）
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: places[0].latitude, lng: places[0].longitude },
+    zoom: 12,
+    mapTypeId: "hybrid",
+    mapId: "e6ad7520cbcd63b",
   });
+
+  // AdvancedMarkerElement を使ってマーカー表示
+  const marker = new google.maps.marker.AdvancedMarkerElement({
+    map: map,
+    position: {
+      lat: places[0].latitude,
+      lng: places[0].longitude
+    }
+  });
+
 
   const geocoder = new google.maps.Geocoder();
 
@@ -47,7 +59,7 @@
       bounds.extend(new google.maps.LatLng(place.latitude, place.longitude));
       });
       map.fitBounds(bounds);
-  }
+  };
 </script>
 
 <div class="border-b border-white mb-1"></div>

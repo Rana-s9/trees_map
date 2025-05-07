@@ -3,13 +3,14 @@
   let marker;
 
   function initMap() {
-    const addressInput = document.getElementById("address-input");
-    const placeNameInput = document.getElementById("place-name");
+    const addressInput = document.getElementById("address");
+    const placeNameInput = document.getElementById("fav_name");
     const searchBtn = document.getElementById("btn-search");
 
     map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 35.681236, lng: 139.767125 }, // 東京駅初期値
             zoom: 13,
+            mapId: "e6ad7520cbcd63b",
           });
 
     searchBtn.addEventListener("click", async function (e) {
@@ -42,7 +43,10 @@
 
       // マーカー更新
       if (marker) marker.setMap(null);
-      marker = new google.maps.Marker({ map: map, position: location });
+      marker = new google.maps.marker.AdvancedMarkerElement({
+        map: map,
+        position: location
+      })
 
       // Hidden 保存
       setHiddenField("fav_place[latitude]", "lat", lat);
@@ -72,7 +76,7 @@
       input.type = "hidden";
       input.name = name;
       input.id = id;
-      document.getElementById("address-input").form.appendChild(input);
+      document.getElementById("address").form.appendChild(input);
     }
     input.value = value;
   }
@@ -95,8 +99,4 @@
 </script>
 
 <!-- Google Maps 読み込み -->
-<script
-  async
-  defer
-  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap&libraries=marker&v=weekly&loading=async" async defer></script>
