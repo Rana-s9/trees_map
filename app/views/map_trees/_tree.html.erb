@@ -15,7 +15,7 @@
   }
 
     // 地図を初期化（Mapは先に作る必要がある）
-  const map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: places[0].latitude, lng: places[0].longitude },
     zoom: 12,
     mapTypeId: "hybrid",
@@ -35,30 +35,29 @@
   const geocoder = new google.maps.Geocoder();
 
   places.forEach(place => {
-      const latLng = new google.maps.LatLng(place.latitude, place.longitude);
+    const latLng = new google.maps.LatLng(place.latitude, place.longitude);
 
-      const marker = new google.maps.Marker({
-      position: latLng,
+    const marker = new google.maps.marker.AdvancedMarkerElement({
       map: map,
-      title: place.fav_name || "お気に入りの場所" // 名前がある場合、それをタイトルとして使用
-      });
+      position: latLng,
+    });
 
-      // 情報ウィンドウを作成
-      const infoWindow = new google.maps.InfoWindow({
-      content: place.fav_name || "お気に入りの場所"
-      });
+    // 情報ウィンドウを作成
+    const infoWindow = new google.maps.InfoWindow({
+    content: place.fav_name || "お気に入りの場所"
+    });
 
-      // クリックイベントで情報ウィンドウを表示
-      marker.addListener("click", function () {
-      infoWindow.open(map, marker);
-      });
+    // クリックイベントで情報ウィンドウを表示
+    marker.addListener("gmp-click", function () {
+    infoWindow.open(map, marker);
+    });
   });
 
-      const bounds = new google.maps.LatLngBounds();
-      places.forEach(place => {
-      bounds.extend(new google.maps.LatLng(place.latitude, place.longitude));
-      });
-      map.fitBounds(bounds);
+    const bounds = new google.maps.LatLngBounds();
+    places.forEach(place => {
+    bounds.extend(new google.maps.LatLng(place.latitude, place.longitude));
+    });
+    map.fitBounds(bounds);
   };
 </script>
 
