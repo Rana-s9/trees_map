@@ -71,5 +71,5 @@ gem "devise-i18n"
 
 gem "geocoder"
 gem "dotenv-rails"
-gem "google_places"
+# gem "google_places"
 

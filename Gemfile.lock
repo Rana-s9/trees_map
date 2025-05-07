@@ -131,12 +131,6 @@ GEM
       csv (>= 3.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google_places (2.0.0)
-      httparty (>= 0.13.1)
-    httparty (0.23.1)
-      csv
-      mini_mime (>= 1.0.0)
-      multi_xml (>= 0.5.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     io-console (0.8.0)
@@ -177,8 +171,6 @@ GEM
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
-    multi_xml (0.7.1)
-      bigdecimal (~> 3.1)
     net-imap (0.5.7)
       date
       net-protocol
@@ -410,7 +402,6 @@ DEPENDENCIES
   devise-i18n
   dotenv-rails
   geocoder
-  google_places
   jbuilder
   jsbundling-rails
   kamal
