@@ -31,7 +31,6 @@
     }
   });
 
-
   const geocoder = new google.maps.Geocoder();
 
   places.forEach(place => {
@@ -58,9 +57,22 @@
     bounds.extend(new google.maps.LatLng(place.latitude, place.longitude));
     });
     map.fitBounds(bounds);
+
+
   };
 </script>
+<div class="flex">
+  <%= link_to "みんなの植林ログ", all_trees_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
+  <% if user_signed_in? %>
+    <%= link_to "#{current_user.user_name} の植林ログ", my_trees_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
+  <% end %>
+</div>
 
+<div class="flex justify-center">
+  <button id="map-btn" class="bg-white hover:bg-moss-green text-gray font-bold py-2 px-4 rounded-md shadow-md transition">
+    カメラ連動マップを表示 <i class="fa-solid fa-map-pin text-pink-red"></i>
+  </button>
+</div>
 <div class="border-b border-white mb-1"></div>
 <div class="btn btn-gray text-white text-xl font-bold" disabled>国・地域カメラ<i class="fa-solid fa-camera text-white"></i>（木を見る視点を変えて、あなたの木を発見<i class="fa-solid fa-lightbulb text-lemon"></i>）</div>
 <div id="camera-buttons" class="flex gap-2 p-4">
@@ -82,9 +94,4 @@
   <button id="btn-antarctic" class="bg-fog-blue hover:bg-green-600 text-gray font-bold py-2 px-4 rounded-md shadow-md transition">南極圏</button>
 </div>
 <div class="border-b border-white"></div>
-<%= link_to "みんなの植林ログ", all_trees_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block mb-2" %>
-<% if user_signed_in? %>
-  <!--button id="addTreeButton" class="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition">ランダム位置に木を植える</button>-->
-  <%= link_to "#{current_user.user_name} の植林ログ", my_trees_path,data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block mb-2" %>
-<% end %>
 <button id="btn-refresh">🔄</button>

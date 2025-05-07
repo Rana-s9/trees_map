@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
   <header>
-    <% if user_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_user_session_path,data: { turbo: false }, method: :delete, class: "text-white" %>
-        <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "text-white" %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "新規登録", new_user_registration_path,data: { turbo: false }, class: "text-white" %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_user_session_path,data: { turbo: false }, class: "text-white" %>
-        <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "text-white" %>
-      </li>
-    <% end %>
+    <div class="flex">
+      <%= link_to "TOP",root_path, data: { turbo: false },class: "w-200 bg-lemon hover:bg-dry-khaki text-gray font-bold py-1 px-4 rounded-md shadow-md transition" %>
+      <%= link_to '概要/操作方法', intro_trees_path, data: { turbo: false }, class: "bg-gray hover:bg-light-blue text-lemon font-bold py-1 px-4 rounded-md shadow-md transition inline-block" %>
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to "ログアウト", destroy_user_session_path,data: { turbo: false }, method: :delete, class: "text-lemon" %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "新規登録", new_user_registration_path,data: { turbo: false }, class: "text-lemon" %>
+        </li>
+        <li>
+          <%= link_to "ログイン", new_user_session_path,data: { turbo: false }, class: "text-lemon" %>
+        </li>
+      <% end %>
+    </div>
   </header>
   <head>
     <title><%= content_for(:title) || "map_trees" %></title>

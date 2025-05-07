@@ -1,0 +1,75 @@
+<h1 class="text-3xl text-white text-center mb-8">＜概要＞</h1>
+
+<div class="flex flex-wrap">
+  <!-- 左側 -->
+  <div class="w-full lg:w-1/2 p-4">
+    <%= image_tag '/fav_picture.png', class: 'mx-auto', style: 'width: 66%; height: auto; border: 4px solid white;' %>
+    <h2 class="text-xl text-white text-center mt-5">
+      新規登録・ログイン後、場所を登録することができます！<br>
+      登録後は植林ページへ移動し、場所を選択して植林できます。<br>
+    </h2>
+    <h2 class="text-xl text-pink-red text-center mt-5">
+      ※登録場所は１人につき１０か所できます。<br>
+      ※「場所一覧」から登録場所を削除できます。
+    </h2>
+  </div>
+  <!-- 右側 -->
+  <div class="w-full lg:w-1/2 p-4">
+    <%= image_tag '/tree_picture.png', class: 'mx-auto', style: 'width: 66%; height: auto; border: 4px solid white;' %>
+    <h2 class="text-xl text-white text-center mt-5">
+      世界中に木を植えることができます。（上記画像は日本各地に植えた場合の参考画像）<br>
+      緑を増やし、自然に想いを馳せる時間を<i class="fa-solid fa-tree text-moss-green"></i><br>
+    </h2>
+    <h2 class="text-xl text-pink-red text-center mt-5">
+      ※１人につき１０本まで植林できます。<i class="fa-solid fa-tree text-moss-green"></i><br>
+      ※「植林ログ」から特定の木を削除できます。
+    </h2>
+  </div>
+</div>
+<div class="border-b border-white mb-6"></div>
+<h1 class="text-3xl text-white text-center mb-8">＜操作方法＞</h1>
+  <div class="flex flex-wrap">
+  <!-- 左側 -->
+  <div class="w-full lg:w-1/2 p-4">
+    <%= image_tag '/tree_picture2.png', class: 'mx-auto', style: 'width: 66%; height: auto; border: 4px solid white;' %>
+    <h2 class="text-xl text-white text-center mt-5">
+      場所を選択後、「この場所に木を植える」をクリックすると<br>
+      即座にその場所に木が生えます。<br>
+      <i class="fa-solid fa-tree text-moss-green"></i>
+    </h2>
+  </div>
+
+  <!-- 右側 -->
+  <div class="w-full lg:w-1/2 p-4">
+    <%= image_tag '/tree_picture3.png', class: 'mx-auto', style: 'width: 66%; height: auto; border: 4px solid white;' %>
+    <h2 class="text-xl text-white text-center mt-5">
+      「カメラ連動マップを表示」を押すと、マップを見ながら<br>
+      あなたの木を探すことができます。<br>
+      「地域カメラ」をそれぞれ押すと、カメラが特定地域を映します。<br>
+      <i class="fa-solid fa-tree text-moss-green"></i><br>
+    </h2>
+  </div>
+</div>
+<h2 class="text-xl text-lemon text-center mt-5">
+  空間の操作が難しい場合があります。裏返ってしまった場合は、<br>
+  水色のリフレッシュボタンをクリックしてください。<br>
+  日本のカメラに自動で移動します。<br>
+  <i class="fa-solid fa-tree text-moss-green"></i><br>
+</h2>
+
+<div class="bg-white bg-opacity-20 rounded-lg p-4 mt-5 text-gray text-lg text-center">
+  <h3 class="text-lg font-bold mb-2">マウス操作</h3>
+  <ul class="list-disc list-inside">
+    <li><strong>左クリック＋ドラッグ：</strong> 視点を回転（カメラを回す）</li>
+    <li><strong>右クリック＋ドラッグ：</strong> 上下左右に視点を移動（パン）</li>
+    <li><strong>マウスホイール：</strong> ズームイン・ズームアウト</li>
+    <li><strong>Ctrl + 左クリック＋ドラッグ：</strong> パン（Macでは Cmd）</li>
+  </ul>
+
+  <h3 class="text-lg font-bold mt-4 mb-2">タッチ操作（スマホ・タブレット）</h3>
+  <ul class="list-disc list-inside">
+    <li><strong>1本指でスワイプ：</strong> 視点を回転（カメラを回す）</li>
+    <li><strong>2本指でスワイプ：</strong> 上下左右に視点を移動（パン）</li>
+    <li><strong>ピンチイン／ピンチアウト：</strong> ズームイン・ズームアウト</li>
+  </ul>
+</div>

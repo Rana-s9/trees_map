@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :map_trees, only: %i[index create]
   resources :my_trees, only: %i[index edit update show destroy]
   resources :all_trees, only: %i[index edit update show]
+  resources :intro_trees, only: %i[index]
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

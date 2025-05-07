@@ -1,3 +1,27 @@
+let mapInitialized = false;
+
+document.getElementById('map-btn').addEventListener('click', () => {
+    const mapContainer = document.getElementById('map-container');
+
+    if (mapContainer.style.display === 'none' || !mapContainer.style.display) {
+    mapContainer.style.display = 'block';
+
+    if (!mapInitialized) {
+        initMap();
+        mapInitialized = true;
+    }
+
+    document.getElementById('map-btn').innerText = 'カメラ連動マップを隠す';
+    } else {
+    mapContainer.style.display = 'none';
+    document.getElementById('map-btn').innerText = 'カメラ連動マップを表示';
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById('map-container').style.display = 'none';
+});
+
 const cameraFocusMap = {
     "btn-north": { lat: 60.1282, lng: 18.6435 },
     "btn-south": { lat: -25.2744, lng: 133.7751 },
