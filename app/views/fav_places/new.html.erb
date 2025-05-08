@@ -8,7 +8,11 @@
     <% end %>
   </div>
   <div class="w-full lg:w-1/4">
-    <%= render 'link' %>
+    <% if user_signed_in? %>
+      <%= link_to "⓶木を植えに行く",map_trees_path, data: { turbo: false }, class: "w-200 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
+    <% else %>
+      <%= link_to "木を見に行く",map_trees_path, data: { turbo: false }, class: "w-200 bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition" %>
+    <% end %>
     <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-pink-red text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
     <div class="rounded-lg shadow-lg p-4 bg-mid-blue">
         <h2 class="text-lg font-bold text-white mb-4">参考<i class="fa-solid fa-tree text-moss-green"></i>登録済みの場所一覧<i class="fa-solid fa-tree text-moss-green"></i></h2>

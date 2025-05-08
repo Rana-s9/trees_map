@@ -1,5 +1,5 @@
 <header class ="relative">
-  <%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-light-pink hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
+  <%= render 'link' %>
   <%= link_to '場所一覧', fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
   <h1 class="text-white text-2xl"><br>現在のすべての<i class="fa-solid fa-tree text-moss-green"></i><span id="trees-count"><%= @trees_count %></span>本</h1>
 </header>
