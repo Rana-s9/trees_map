@@ -2,8 +2,8 @@
 <h1 class="text-white text-4xl text-center mb-5">
   登録場所一覧 <i class="fa-solid fa-map-pin text-pink-red"></i>
 </h1>
+<%= link_to '⓵新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-light-pink hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
 <%= render 'link' %>
-<%= link_to '新しい場所を追加', new_fav_place_path, data: { turbo: false }, class: "bg-light-pink hover:bg-pink-red text-gray font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
 </header>
 <body style="background-color: green;">
   <div class="container mx-auto px-4">

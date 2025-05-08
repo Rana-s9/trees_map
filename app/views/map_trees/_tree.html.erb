@@ -14,7 +14,6 @@
       return;
   }
 
-    // 地図を初期化（Mapは先に作る必要がある）
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: places[0].latitude, lng: places[0].longitude },
     zoom: 12,
@@ -22,7 +21,6 @@
     mapId: "e6ad7520cbcd63b",
   });
 
-  // AdvancedMarkerElement を使ってマーカー表示
   const marker = new google.maps.marker.AdvancedMarkerElement({
     map: map,
     position: {

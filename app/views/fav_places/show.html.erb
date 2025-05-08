@@ -31,32 +31,31 @@
     </div>
 </body>
 
-<!-- Google Maps処理 -->
 <div id="map" style="height: 400px; width: 100%; margin-top: 2rem;"></div>
 
 <script>
   const lat = <%= @fav_place.latitude.to_f %>;
   const lng = <%= @fav_place.longitude.to_f %>;
+  let map;
 
   function initMap() {
-    const map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: lat, lng: lng },
       zoom: 12,
-      mapTypeId: "hybrid"
+      mapTypeId: "hybrid",
+      mapId: "<%= ENV['MAP_ID'] %>",
     });
 
-    const marker = new google.maps.Marker({
-      position: { lat: lat, lng: lng },
-      map: map
+    const marker = new google.maps.marker.AdvancedMarkerElement({
+      map: map,
+      position: {
+        lat: lat,
+        lng: lng
+      }
     });
 
     const geocoder = new google.maps.Geocoder();
     const latLng = new google.maps.LatLng(lat, lng);
   }
 </script>
-
-<script
-  async
-  defer
-  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&libraries=places&callback=initAutocomplete">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API'] %>&callback=initMap&libraries=marker&v=weekly&loading=async" async defer></script>
