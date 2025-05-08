@@ -10,7 +10,7 @@
     map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 35.681236, lng: 139.767125 }, // 東京駅初期値
             zoom: 13,
-            mapId: "e6ad7520cbcd63b",
+            mapId: "<%= ENV['MAP_ID'] %>",
           });
 
     searchBtn.addEventListener("click", async function (e) {

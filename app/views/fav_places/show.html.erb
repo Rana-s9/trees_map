@@ -1,9 +1,11 @@
 <header>
 <%= link_to "🔙場所一覧に戻る", fav_places_path, data: { turbo: false }, class: "bg-light-salmon hover:bg-pink-red text-white font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
-<%= link_to @fav_place.fav_name + "に植林する🌳", map_trees_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
+<% if @fav_place.user == current_user %>
+  <%= link_to @fav_place.fav_name + "に植林する🌳", map_trees_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 font-bold py-2 px-4 rounded-md shadow-md transition inline-block" %>
+<% end %>
 </header>
 
-<body style="background-color: white;">
+<body style="background-color: green;">
     <% content_for(:fav_place, @fav_place.fav_name) %> <!-- 個別タイトル表示 -->
 
     <div class="container pt-5">
@@ -20,9 +22,9 @@
                     <strong>ユーザー:</strong> <%= @fav_place.user.user_name %>
                     <strong>住所:</strong> <%= @fav_place.address %>
                   </p>
-                  <div class="flex justify-end">
-                    <%= link_to '削除', fav_place_path(@fav_place), data: { turbo_method: :delete, turbo_confirm: "この場所に既に植林している場合、木も削除されます🌳本当に削除しますか？"}, class: "bg-red-500 hover:bg-light-salmon font-bold py-2 px-4 rounded shadow" %>
-                  </div>
+                  <% if @fav_place.user == current_user %>
+                    <%= link_to '削除', fav_place_path(@fav_place), data: { turbo_method: :delete, turbo_confirm: "この場所に既に植林している場合、木も削除されます。本当に削除しますか？"}, class: "bg-red-500 hover:bg-light-salmon font-bold py-2 px-4 rounded shadow" %>
+                  <% end %>
               </div>
             </div>
           </div>

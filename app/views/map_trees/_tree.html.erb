@@ -18,7 +18,7 @@
     center: { lat: places[0].latitude, lng: places[0].longitude },
     zoom: 12,
     mapTypeId: "hybrid",
-    mapId: "e6ad7520cbcd63b",
+    mapId: "<%= ENV['MAP_ID'] %>",
   });
 
   const marker = new google.maps.marker.AdvancedMarkerElement({
