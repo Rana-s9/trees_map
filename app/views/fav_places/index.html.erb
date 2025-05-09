@@ -1,12 +1,15 @@
 <header>
 <h1 class="text-white text-4xl text-center mb-5">
-  登録場所一覧 <i class="fa-solid fa-map-pin text-pink-red"></i>
+  登録場所一覧 <i class="fa-solid fa-map-pin text-pink-red"></i><br>
+  
 </h1>
 <%= render 'link' %>
 </header>
-<body style="background-color: green;">
+<body>
   <div class="container mx-auto px-4">
-    <h1 class="text-3xl font-bold mb-8 text-white text-center"><i class="fa-solid fa-tree text-moss-green"></i><i class="fa-solid fa-tree text-moss-green"></i><i class="fa-solid fa-tree text-moss-green"></i></h1>
+    <% if user_signed_in? %>
+      <h1 class="text-2xl mb-8 text-white text-center"><i class="fa-solid fa-map-pin text-pink-red"></i>場所を登録したら、木を植えに行こう<i class="fa-solid fa-map-pin text-pink-red"></i></h1>
+    <% end %>
 
     <% if @fav_places.empty? %>
       <p class="text-white text-center text-lg">登録場所はまだありません</p>
@@ -26,6 +29,11 @@
             <p>住所 <%= fav_place.address %></p><br>
             <% if fav_place.user == current_user %>
               <%= link_to '削除', fav_place_path(fav_place), data: { turbo_method: :delete, turbo_confirm: "この場所に既に植林している場合、木も削除されます。本当に削除しますか？"}, class: "bg-red-500 hover:bg-light-salmon font-bold py-2 px-4 rounded shadow" %>
+            <% end %>
+            <% if fav_place.tree.present? %>
+              <p class="text-right font-bold">植林済み: <%= fav_place.tree.tree_name %><i class="fa-solid fa-tree text-moss-green"></i></p>
+            <% else %>
+              <p class="text-right text-light-salmon font-bold">まだ木がありません</p>
             <% end %>
           </div>
         <% end %>

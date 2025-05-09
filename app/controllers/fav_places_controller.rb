@@ -1,6 +1,7 @@
 class FavPlacesController < ApplicationController
   def index
     @fav_places = FavPlace.all.order(created_at: :desc)
+    @places_no_tree = current_user.places_no_trees
   end
 
   def new
@@ -21,7 +22,6 @@ class FavPlacesController < ApplicationController
 
     @fav_place = current_user.fav_places.build(fav_place_params)
     @fav_places = FavPlace.all.order(fav_name: :asc)
-    # 緯度・経度が空の場合だけGeocoderを使う
     if @fav_place.latitude.blank? || @fav_place.longitude.blank?
       result = Geocoder.search(@fav_place.address).first
       if result
