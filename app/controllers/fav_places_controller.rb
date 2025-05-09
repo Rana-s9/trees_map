@@ -1,7 +1,6 @@
 class FavPlacesController < ApplicationController
   def index
     @fav_places = FavPlace.all.order(created_at: :desc)
-    @places_no_tree = current_user.places_no_trees
   end
 
   def new

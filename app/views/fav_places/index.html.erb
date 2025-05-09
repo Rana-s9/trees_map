@@ -33,7 +33,10 @@
             <% if fav_place.tree.present? %>
               <p class="text-right font-bold">植林済み: <%= fav_place.tree.tree_name %><i class="fa-solid fa-tree text-moss-green"></i></p>
             <% else %>
-              <p class="text-right text-light-salmon font-bold">まだ木がありません</p>
+                <p class="text-light-salmon text-right font-bold">まだ木がありません</p>
+                <div class="flex justify-end">
+                <%= link_to "⓶木を植えに行く", map_trees_path, data: { turbo: false }, class: "bg-green-400 hover:bg-green-600 text-white font-bold py-1 px-3 rounded-md shadow-md transition" %>
+              </div>
             <% end %>
           </div>
         <% end %>
