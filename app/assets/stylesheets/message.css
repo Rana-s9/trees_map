@@ -44,3 +44,16 @@
   transform: translateX(-50%);
   font-size: 1.8rem;
 }
+
+.move {
+  position: absolute;
+  top: 790px;
+  left: 20px;
+  z-index: 10; /* Three.jsのcanvasよりも前面に配置 */
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}

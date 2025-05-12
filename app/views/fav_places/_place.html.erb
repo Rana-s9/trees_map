@@ -11,6 +11,8 @@
             center: { lat: 35.681236, lng: 139.767125 }, // 東京駅初期値
             zoom: 13,
             mapId: "<%= ENV['MAP_ID'] %>",
+            gestureHandling: "none",
+            disableDefaultUI: true
           });
 
     searchBtn.addEventListener("click", async function (e) {
