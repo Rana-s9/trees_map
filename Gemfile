@@ -63,7 +63,7 @@ group :test do
 end
 
 gem "tailwindcss-rails"
-gem "tailwindcss-ruby", "3.4.17"
+gem "tailwindcss-ruby", "4.1.7"
 
 gem "devise"
 gem "rails-i18n"
