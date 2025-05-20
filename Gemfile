@@ -71,4 +71,3 @@ gem "devise-i18n"
 
 gem "geocoder"
 gem "dotenv-rails"
-

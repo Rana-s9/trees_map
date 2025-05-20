@@ -9,7 +9,7 @@ class MapTreesController < ApplicationController
           redirect_to map_trees_path
         end
         format.json do
-          render json: { status: 'error', message: '1人あたり10本までしか木を植えられません。' }, status: :forbidden
+          render json: { status: "error", message: "1人あたり10本までしか木を植えられません。" }, status: :forbidden
         end
       end
       return
@@ -19,11 +19,11 @@ class MapTreesController < ApplicationController
     @tree = current_user.trees.new(tree_params)
     fav_names = current_user.fav_places.pluck(:fav_name)
       if @tree.save
-      # 保存成功時の処理
-        render json: { status: 'success', tree: @tree.as_json, user_name: current_user.user_name, fav_names: fav_names, trees_count: Tree.count, tree_count: current_user.trees.count  }, status: :created
+        # 保存成功時の処理
+        render json: { status: "success", tree: @tree.as_json, user_name: current_user.user_name, fav_names: fav_names, trees_count: Tree.count, tree_count: current_user.trees.count  }, status: :created
       else
-      # 保存失敗時の処理
-        render json: { status: 'error', errors: @tree.errors.full_messages }, status: :unprocessable_entity
+        # 保存失敗時の処理
+        render json: { status: "error", errors: @tree.errors.full_messages }, status: :unprocessable_entity
       end
   end
 
@@ -38,7 +38,7 @@ class MapTreesController < ApplicationController
         longitude: tree.fav_place&.longitude
         )
     end
-    
+
     @trees_count = Tree.count
 
     if current_user

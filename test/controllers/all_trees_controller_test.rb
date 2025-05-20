@@ -5,7 +5,7 @@ class AllTreesControllerTest < ActionDispatch::IntegrationTest
     get all_trees_index_url
     assert_response :success
   end
-  
+
   test "should get show" do
     get all_trees_show_url
     assert_response :success

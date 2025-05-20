@@ -11,7 +11,7 @@ class FavPlace < ApplicationRecord
 
   def position_place
     if fav_x.blank? || fav_y.blank? || fav_z.blank?
-      errors.add(:base, '座標取得のため、もう一度お試しください')
+      errors.add(:base, "座標取得のため、もう一度お試しください")
     end
   end
 end

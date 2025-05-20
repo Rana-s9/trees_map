@@ -13,7 +13,6 @@ class FavPlacesController < ApplicationController
   end
 
   def create
-
     if current_user.fav_places.count >= 10
       flash[:alert] = "1人あたり10のエリアまで登録できます。"
       redirect_to new_fav_place_path and return
@@ -31,7 +30,7 @@ class FavPlacesController < ApplicationController
 
     if @fav_place.save
       respond_to do |format|
-        format.html { redirect_to new_fav_place_path, notice: '登録しました' }
+        format.html { redirect_to new_fav_place_path, notice: "登録しました" }
       end
     else
       render :new, status: :unprocessable_entity
@@ -53,4 +52,3 @@ class FavPlacesController < ApplicationController
     params.require(:fav_place).permit(:fav_name, :address, :fav_x, :fav_y, :fav_z, :latitude, :longitude)
   end
 end
-
