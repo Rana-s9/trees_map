@@ -2,17 +2,17 @@ require "test_helper"
 
 class AllTreesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get all_trees_index_url
+    get fav_places_url
     assert_response :success
   end
 
   test "should get show" do
-    get all_trees_show_url
+    get fav_place_url(fav_places(:one))
     assert_response :success
   end
 
   test "should get edit" do
-    get all_trees_edit_url
+    get new_fav_place_url
     assert_response :success
   end
 end
