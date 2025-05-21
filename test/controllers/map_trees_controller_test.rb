@@ -1,8 +1,8 @@
 require "test_helper"
 
-class IntroControllerTest < ActionDispatch::IntegrationTest
+class MapTreesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get intro_index_url
+    get map_trees_url
     assert_response :success
   end
 end
