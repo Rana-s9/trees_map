@@ -36,4 +36,3 @@ class MyTreesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 end
-
