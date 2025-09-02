@@ -54,7 +54,6 @@
 |CSSフレームワーク|Tailwindcss|
 |Web API|Google Maps API・Geocoder API・Open Weather API・Google Calendar API|
 |データベースサーバー|PostgreSQL|
-|ファイルサーバー（glbファイル)|Cloudflare R2|
 |アプリケーションサーバー|Render|
 |バージョン管理ツール|GitHub・Git Flow|
 |3Dモデル|Blender|
