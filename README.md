@@ -26,18 +26,22 @@
 ## 1. 新規登録・ログイン  
 - アカウントを作成し、自分だけの森に参加できます  
 
-## 2. 場所登録 🌍  
+## 2. 場所登録 🌍
+<img width="1324" height="815" alt="fav_picture" src="https://github.com/user-attachments/assets/733d47c3-b830-493d-be6c-7cbefb057beb" /><br>
 - 世界中の好きな場所を選んで木を植えることができます
   - 住所・緯度経度を用いて登録するので、より詳細な場所を登録できます  
 
-## 3. 3D空間での植林 🌳  
+## 3. 3D空間での植林 🌳
+<img width="1478" height="770" alt="tree_picture2" src="https://github.com/user-attachments/assets/c73775b4-9da4-471d-a398-a14916ea999f" /><br>
 - 登録した場所にリンクした3D空間の相対位置に木を生やすことが可能  
 - 木に名前を付けて記録できます  
 
-## 4. 地図を木でつくる
+## 4. 木で地図をつくる
+<img width="1541" height="792" alt="tree_picture" src="https://github.com/user-attachments/assets/361ad820-80d5-455b-a99a-2f30f4bc517e" /><br>
 - 日本各地に植林すれば、木々で日本列島の形が浮かび上がります  
 
 ## 5. 世界中を見に行けるカメラ機能 🎥  
+<img width="1487" height="879" alt="tree_picture3" src="https://github.com/user-attachments/assets/8bc3c50c-5b2b-46b0-9958-8efb5be1adba" /><br>
 - 複数の視点カメラを切り替え、地球上の木々を自由に見に行けます  
 - 他のユーザーが植えた木を探す楽しみも  
   ___
