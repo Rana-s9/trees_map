@@ -24,7 +24,7 @@
  # 🖥️ 主な機能  
 
 ## 1. 新規登録・ログイン  
-- アカウントを作成し、自分だけの森に参加できます  
+- アカウントを作成し、植林に参加できます
 
 ## 2. 場所登録 🌍
 <img width="1324" height="815" alt="fav_picture" src="https://github.com/user-attachments/assets/733d47c3-b830-493d-be6c-7cbefb057beb" /><br>
