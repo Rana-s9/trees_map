@@ -33,7 +33,7 @@
 
 ## 3. 3D空間での植林 🌳
 <img width="1478" height="770" alt="tree_picture2" src="https://github.com/user-attachments/assets/c73775b4-9da4-471d-a398-a14916ea999f" /><br>
-- 登録した場所にリンクした3D空間の相対位置に木を生やすことが可能  
+- 登録した場所にリンクした、3D空間の相対位置に木を生やすことが可能です
 - 木に名前を付けて記録できます  
 
 ## 4. 木で地図をつくる
