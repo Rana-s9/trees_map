@@ -42,7 +42,7 @@
 
 ## 5. 世界中を見に行けるカメラ機能 🎥  
 <img width="1487" height="879" alt="tree_picture3" src="https://github.com/user-attachments/assets/8bc3c50c-5b2b-46b0-9958-8efb5be1adba" /><br>
-- 複数の視点カメラを切り替え、地球上の木々を自由に見に行けます  
+- 複数の視点カメラを切り替え、地球上の木々を自由に見に行くことができます 
 - 他のユーザーが植えた木を探す楽しみも  
   ___
 # 🔧技術構成について
